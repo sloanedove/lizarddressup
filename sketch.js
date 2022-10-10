@@ -68,6 +68,7 @@ var rSpeed = 1;
 var bow;
 
 var dress3;
+var dressOne;
 var dresses=[]
 
 function preload() {
@@ -75,16 +76,16 @@ function preload() {
   dress1 = loadImage("clothing/dresses/dress1.png");
   dress2 = loadImage("clothing/dresses/dress2.png");
   
-  top1 = loadImage("top1.png");
-  top2 = loadImage("top2.png");
+  top1 = loadImage("clothing/tops/top1.png");
+  top2 = loadImage("clothing/tops/top2.png");
 //   top3 = loadImage("top3.png");
   
-  bottom1 = loadImage("bottom1.png");
-  bottom2 = loadImage("bottom2.png");
+  bottom1 = loadImage("clothing/bottoms/bottom1.png");
+  bottom2 = loadImage("clothing/bottoms/bottom2.png");
   
-  shoe1 = loadImage("shoe1.png");
+  shoe1 = loadImage("clothing/shoes/shoe1.png");
   
-  accessory1 = loadImage("accessory1.png");
+  accessory1 = loadImage("clothing/accessories/accessory1.png");
   
 //   titleFont = loadFont("bootsandspurs.ttf");
   roombackground = loadImage("roombackground.png")
@@ -105,7 +106,8 @@ function setup() {
   angleMode(DEGREES);
   saveImage = createGraphics(400, 670);
   dress3 = new Dress(100, 100, "clothing/dresses/dress3.png");
-  print(dress3.fileName);
+  dressOne= new Dress(420, 20, "clothing/dresses/dress1.png");
+
 }
 
 function draw() {
@@ -120,8 +122,6 @@ function draw() {
       dressUpScreen();
       break;
   }
-  image("/clothing/dresses/dress3.png", dress3.x, dress3.y, dress3.width, dress3.height);
-  // dress3.intersect();
 }
 
 function startScreen() {
@@ -203,11 +203,24 @@ function dressUpScreen() {
 
   // row 1:
   // rotate if hovering
-  if (mouseX > 420 && mouseX < 560 && mouseY > 20 && mouseY < 160) {
-    rotateIcon(420, 20, 140, dress1);
-  } else {
-    image(dress1, 420, 20, 140, 140);
+  if(dress3.intersect()){
+    dress3.rotateIcon();
+  
+  }else {
+    image(dress3.fileName, dress3.x, dress3.y, dress3.width, dress3.height);
   }
+
+  if(dressOne.intersect()){
+    dressOne.rotateIcon();
+  }else{
+    image(dressOne.fileName, dressOne.x, dressOne.y, dressOne.width, dressOne.height);
+  }
+  // if (mouseX > 420 && mouseX < 560 && mouseY > 20 && mouseY < 160) {
+  //   rotateIcon(420, 20, 140, dress1);
+  // } else {
+  
+  //   image(dress1, 420, 20, 140, 140);
+  // }
   if (mouseX >550 && mouseX < 760 && mouseY > 20 && mouseY < 160){
     rotateIcon(550, 20, 140, dress2);
   }else {
@@ -267,9 +280,11 @@ function dressUpScreen() {
   push();
 
   imageMode(CENTER);
+  dress3.dressOnLizard();
+  dressOne.dressOnLizard();
   if (dressLoc.x != 0 && dressLoc.y != 0) {
     if (currentDress == "dress1" && dressOn) {
-      image(dress1, dressLoc.x, dressLoc.y, dressSize, dressSize);
+      // image(dress1, dressLoc.x, dressLoc.y, dressSize, dressSize);
     } else if (currentDress == "dress2" && dressOn) {
       image(dress2, dressLoc.x, dressLoc.y, dressSize, dressSize);
     }
@@ -345,6 +360,12 @@ function dressUpScreen() {
   noStroke();
   fill(0);
   text("save image", 150, height - 100);
+  if(dress3.placed){
+    image(dress3.fileName, dress3.x, dress3.y, dress3.width, dress3.height);
+  }
+  if(dressOne.placed){
+    image(dressOne.fileName, dressOne.x, dressOne.y, dressOne.width, dressOne.height);
+  }
 }
 
 function mousePressed() {
@@ -355,9 +376,25 @@ function mousePressed() {
     //////////
     // check which item of clothing we selected:
     //////////
+    if(dress3.intersect()){
+      dress3.active=!dress3.active;
+      console.log(dress3.active);
+    }else if(dress3.active){
+      dress3.x=mouseX-dress3.width/2;
+        dress3.y=mouseY-dress3.height/2;
+        dress3.active=!dress3.active;
+    }
+    if(dressOne.intersect()){
+      dressOne.active=!dressOne.active;
+      console.log(dressOne.active);
+    }else if(dressOne.active){
+      dressOne.x=mouseX-dressOne.width/2;
+        dressOne.y=mouseY-dressOne.height/2;
+        dressOne.active=!dressOne.active;
+    }
 
     if (mouseX > 420 && mouseX < 560 && mouseY > 20 && mouseY < 160) {
-      currentClothing = "dress1";
+      // currentClothing = "dress1";
     } else if (mouseX > 550 && mouseX < 760 && mouseY > 20 && mouseY <160) {
       currentClothing = "dress2";
     } else if (mouseX > 420 && mouseX < 520 && mouseY > 150 && mouseY < 250) {
@@ -392,7 +429,7 @@ function mouseClicked() {
 
 function mouseReleased() {
   if (screen == 2) { // making sure we are on dress up screen
-
+    
     //////////
     // placing clothing on screen:
     // only do so if we have actually selected an item 
@@ -483,5 +520,6 @@ function rotateIcon(x, y, size, img) {
   rotate(currentAngle);
   image(img, 0, 0, size, size);
   currentAngle += rSpeed;
+  // console.log(currentAngle);
   pop();
 }
