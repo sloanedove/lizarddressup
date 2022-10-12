@@ -69,7 +69,20 @@ var bow;
 
 var dress3;
 var dressOne;
+var dressTwo;
 var dresses=[]
+
+var bottomOne;
+var bottomTwo;
+
+var topOne;
+var topTwo;
+var topThree;
+var topFour;
+var topFive;
+
+
+
 
 function preload() {
   lizardDoll = loadImage("lizarddoll.png");
@@ -105,9 +118,19 @@ function setup() {
   accessoryLoc = createVector(0, 0);
   angleMode(DEGREES);
   saveImage = createGraphics(400, 670);
+ 
   dress3 = new Dress(100, 100, "clothing/dresses/dress3.png");
   dressOne= new Dress(420, 20, "clothing/dresses/dress1.png");
+  dressTwo= new Dress(420, 40, "clothing/dresses/dress2.png");
+ 
+  bottomOne= new Bottom(420, 20, "clothing/bottoms/bottom1.png")
+  bottomTwo= new Bottom(420, 40, "clothing/bottoms/bottom2.png");
 
+  topOne = new Top(420, 20, "clothing/tops/top1");
+  topTwo= new Top(420, 40, "clothing/tops/top2.png");
+  topThree= new Top(420, 40, "clothing/top3.png");
+  topFour= new Top(420, 40, "clothing/tops/top4");
+  topFive= new Top(420, 40, "clothing/tops/top5")
 }
 
 function draw() {
@@ -209,12 +232,60 @@ function dressUpScreen() {
   }else {
     image(dress3.fileName, dress3.x, dress3.y, dress3.width, dress3.height);
   }
-
   if(dressOne.intersect()){
     dressOne.rotateIcon();
   }else{
     image(dressOne.fileName, dressOne.x, dressOne.y, dressOne.width, dressOne.height);
   }
+
+  if(dressTwo.intersect()){
+    dressTwo.rotateIcon();
+  }else{
+    image(dressTwo.fileName, dressTwo.x, dressTwo.y, dressTwo.width, dressTwo.height);
+  }
+
+  if(bottomOne.intersect()){
+    bottomOne.rotateIcon();
+  }else{
+    image(bottomOne.fileName, bottomOne.x, bottomOne.y, bottomOne.width, bottomOne.height);
+  }
+
+  if(bottomTwo.intersect()){
+    bottomTwo.rotateIcon();
+  }else{
+    image(bottomTwo.fileName, bottomTwo.x, bottomTwo.y, bottomTwo.width, bottomTwo.height);
+  }
+
+  if(topOne.intersect()){
+    topOne.rotateIcon();
+  }else{
+    image(topOne.fileName, topOne.x, topOne.y, topOne.width, topOne.height);
+  }
+
+  if(topTwo.intersect()){
+    topTwo.rotateIcon();
+  }else{
+    image(topTwo.fileName, topTwo.x, topTwo.y, topTwo.width, topTwo.height);
+  }
+
+  if(topThree.intersect()){
+    topThree.rotateIcon();
+  }else{
+    image(topThree.fileName, topThree.x, topThree.y, topThree.width, topThree.height);
+  }
+
+  if(topFour.intersect()){
+    topFour.rotateIcon();
+  }else{
+    image(topFour.fileName, topFour.x, topFour.y, topFour.width, topFour.height);
+  }
+
+  if(topFive.intersect()){
+    topFive.rotateIcon();
+  }else{
+    image(topFive.fileName, topFive.x, topFive.y, topFive.width, topFive.height);
+  }
+
   // if (mouseX > 420 && mouseX < 560 && mouseY > 20 && mouseY < 160) {
   //   rotateIcon(420, 20, 140, dress1);
   // } else {
@@ -282,6 +353,15 @@ function dressUpScreen() {
   imageMode(CENTER);
   dress3.dressOnLizard();
   dressOne.dressOnLizard();
+  dressTwo.dressOnLizard();
+  bottomOne.bottomOnLizard();
+  bottomTwo.bottomOnLizard();
+  topOne.topOnLizard();
+  topTwo.topOnLizard();
+  topThree.topOnLizard();
+  topFour.topOnLizard();
+  topFive.topOnLizard();
+
   if (dressLoc.x != 0 && dressLoc.y != 0) {
     if (currentDress == "dress1" && dressOn) {
       // image(dress1, dressLoc.x, dressLoc.y, dressSize, dressSize);
@@ -366,6 +446,29 @@ function dressUpScreen() {
   if(dressOne.placed){
     image(dressOne.fileName, dressOne.x, dressOne.y, dressOne.width, dressOne.height);
   }
+  if(dressTwo.placed){
+    image(dressTwo.fileName, dressTwo.x, dressTwo.y, dressTwo.width, dressTwo.height);
+  }
+  if(bottomOne.placed){
+    image(bottomOne.fileName, bottomOne.x, bottomOne.y, bottomOne.width, bottomOne.height);
+  }
+  if(bottomTwo.placed){
+    image(bottomTwo.fileName, bottomTwo.x, bottomTwo.y, bottomTwo.width, bottomTwo.height);
+  }
+  if(topOne.placed){
+    image(topOne.fileName, topOne.x, topOne.y, topOne.width, topOne.height);
+  }
+  if(topTwo.placed){
+    image(topTwo.fileName, topTwo.x, topTwo.y, topTwo.width, topTwo.height);
+  }
+  if(topThree.placed){
+    image(topThree.fileName, topThree.x, topThree.y, topThree.width, topThree.height);
+
+  if(topFour.placed){
+      image(topFour.fileName, topFour.x, topFour.y, topFour.width, topFour.height);
+
+  if(topFive.placed){
+        image(topFive.fileName, topFive.x, topFive.y, topFive.width, topFive.height);
 }
 
 function mousePressed() {
@@ -376,6 +479,8 @@ function mousePressed() {
     //////////
     // check which item of clothing we selected:
     //////////
+
+    // dresses
     if(dress3.intersect()){
       dress3.active=!dress3.active;
       console.log(dress3.active);
@@ -392,6 +497,80 @@ function mousePressed() {
         dressOne.y=mouseY-dressOne.height/2;
         dressOne.active=!dressOne.active;
     }
+
+    if(dressTwo.intersect()){
+      dressTwo.active=!dressTwo.active;
+      console.log(dressTwo.active);
+    }else if(dressTwo.active){
+      dressTwo.x=mouseX-dressTwo.width/2;
+        dressTwo.y=mouseY-dressTwo.height/2;
+        dressTwo.active=!dressTwo.active;
+    }
+
+    // bottoms
+    if(bottomOne.intersect()){
+      bottomOne.active=!bottomOne.active;
+      console.log(bottomOne.active);
+    }else if(bottomOne.active){
+        bottomOne.x=mouseX-bottomOne.width/2;
+        bottomOne.y=mouseY-bottomOne.height/2;
+        bottomOne.active=!bottomOne.active;
+ 
+    if(bottomTwo.intersect()){
+      bottomTwo.active=!bottomTwo.active;
+      console.log(bottomTwo.active);
+    }else if(bottomTwo.active){
+      bottomTwo.x=mouseX-bottomTwo.width/2;
+      bottomTwo.y=mouseY-bottomTwo.height/2;
+      bottomTwo.active=!bottomTwo.active;
+    }
+
+    // tops
+    if(topOne.intersect()){
+      topOne.active=!topOne.active;
+      console.log(topOne.active);
+    }else if(bottomOne.active){
+        topOne.x=mouseX-topOne.width/2;
+        topOne.y=mouseY-topOne.height/2;
+        topOne.active=!topOne.active;
+    }
+
+    if(topTwo.intersect()){
+      topTwo.active=!topTwo.active;
+      console.log(topTwo.active);
+    }else if(topTwo.active){
+      topTwo.x=mouseX-topTwo.width/2;
+      topTwo.y=mouseY-topTwo.height/2;
+      topTwo.active=!topTwo.active;
+    }
+
+    if(topThree.intersect()){
+      topThree.active=!topThree.active;
+      console.log(topThree.active);
+    }else if(topThree.active){
+      topThree.x=mouseX-topThree.width/2;
+      topThree.y=mouseY-topThree.height/2;
+      topThree.active=!topThree.active;
+    }
+
+    if(topFour.intersect()){
+      topFour.active=!topFour.active;
+      console.log(topFour.active);
+    }else if(topFour.active){
+      topFour.x=mouseX-topFour.width/2;
+      topFour.y=mouseY-topFour.height/2;
+      topFour.active=!topFour.active;
+    }
+
+    if(topFive.intersect()){
+      topFive.active=!topFive.active;
+      console.log(topFive.active);
+    }else if(topFive.active){
+      topFive.x=mouseX-topFive.width/2;
+      topFive.y=mouseY-topFive.height/2;
+      topFive.active=!topFive.active;
+    }
+
 
     if (mouseX > 420 && mouseX < 560 && mouseY > 20 && mouseY < 160) {
       // currentClothing = "dress1";
