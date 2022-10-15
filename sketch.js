@@ -3,8 +3,24 @@
 // item types: dresses, tops, bottoms, shoes, purses, jewelry
 
 var screen = 0; // 0 is title screen, 1 is instructions, 2 is game play
-// variables for title 
-var title = ["L", "I", "Z", "A", "R", "D", " ", "D", "R", "E", "S", "S", " ", "U", "P"];
+// variables for title
+var title = [
+  "L",
+  "I",
+  "Z",
+  "A",
+  "R",
+  "D",
+  " ",
+  "D",
+  "R",
+  "E",
+  "S",
+  "S",
+  " ",
+  "U",
+  "P",
+];
 var angle = 0;
 var offset = 300;
 var scalar = 40;
@@ -13,11 +29,11 @@ var speed = 8;
 var roombackground;
 // variables for buttons:
 var proceedToGame = false;
-var saveImage; // variable for saving pic of lizard 
+var saveImage; // variable for saving pic of lizard
 // variables for game:
 var lizardDoll;
 var currentClothing = " ";
-// dresses: 
+// dresses:
 var currentDress = " ";
 var dressLoc;
 var dressSize = 240;
@@ -32,7 +48,7 @@ var currentTop = " ";
 var topLoc;
 var topSize = 110;
 var bigTop = 1.3;
-//this is where pngs will be 
+//this is where pngs will be
 //bottoms:
 var currentBottom = " ";
 var bottomLoc;
@@ -64,13 +80,12 @@ var rMax = 5;
 var currentAngle = 0;
 var rSpeed = 1;
 
-
 var bow;
 
 var dress3;
 var dressOne;
 var dressTwo;
-var dresses=[]
+var dresses = [];
 
 var bottomOne;
 var bottomTwo;
@@ -81,32 +96,35 @@ var topThree;
 var topFour;
 var topFive;
 
+var clothing = [];
 
-
+var closetPage = 0;
+var arrow;
 
 function preload() {
   lizardDoll = loadImage("lizarddoll.png");
   dress1 = loadImage("clothing/dresses/dress1.png");
   dress2 = loadImage("clothing/dresses/dress2.png");
-  
+
   top1 = loadImage("clothing/tops/top1.png");
   top2 = loadImage("clothing/tops/top2.png");
-//   top3 = loadImage("top3.png");
-  
+  //   top3 = loadImage("top3.png");
+
   bottom1 = loadImage("clothing/bottoms/bottom1.png");
   bottom2 = loadImage("clothing/bottoms/bottom2.png");
-  
-  shoe1 = loadImage("clothing/shoes/shoe1.png");
-  
-  accessory1 = loadImage("clothing/accessories/accessory1.png");
-  
-//   titleFont = loadFont("bootsandspurs.ttf");
-  roombackground = loadImage("roombackground.png")
- bow = loadImage("bow.png")
 
- for (let i = 1; i <= 3; i++) {
-  dresses[i] = loadImage(`clothing/dresses/dress${i}.png`);
-}
+  shoe1 = loadImage("clothing/shoes/shoe1.png");
+
+  accessory1 = loadImage("clothing/accessories/accessory1.png");
+
+  //   titleFont = loadFont("bootsandspurs.ttf");
+  roombackground = loadImage("roombackground.png");
+  bow = loadImage("bow.png");
+  arrow = loadImage("arrow.png");
+
+  for (let i = 1; i <= 3; i++) {
+    dresses[i] = loadImage(`clothing/dresses/dress${i}.png`);
+  }
 }
 
 function setup() {
@@ -118,19 +136,31 @@ function setup() {
   accessoryLoc = createVector(0, 0);
   angleMode(DEGREES);
   saveImage = createGraphics(400, 670);
- 
-  dress3 = new Dress(100, 100, "clothing/dresses/dress3.png");
-  dressOne= new Dress(420, 20, "clothing/dresses/dress1.png");
-  dressTwo= new Dress(420, 40, "clothing/dresses/dress2.png");
- 
-  bottomOne= new Bottom(420, 20, "clothing/bottoms/bottom1.png")
-  bottomTwo= new Bottom(420, 40, "clothing/bottoms/bottom2.png");
 
-  topOne = new Top(420, 20, "clothing/tops/top1");
-  topTwo= new Top(420, 40, "clothing/tops/top2.png");
-  topThree= new Top(420, 40, "clothing/top3.png");
-  topFour= new Top(420, 40, "clothing/tops/top4");
-  topFive= new Top(420, 40, "clothing/tops/top5")
+  dress3 = new Dress(100, 100, "clothing/dresses/dress3.png");
+  dressOne = new Dress(420, 40, "clothing/dresses/dress1.png");
+  dressTwo = new Dress(420, 60, "clothing/dresses/dress2.png");
+
+  bottomOne = new Bottom(420, 280, 100, 100, "clothing/bottoms/bottom1.png");
+  bottomTwo = new Bottom(510, 280, 200, 200, "clothing/bottoms/bottom2.png");
+
+  topOne = new Top(420, 150, "clothing/tops/top1.png");
+  topTwo = new Top(530, 150, "clothing/tops/top2.png");
+  topThree = new Top(0, 0, "clothing/tops/top3.png");
+  topFour = new Top(0, 0, "clothing/tops/top4.png");
+  topFive = new Top(0, 0, "clothing/tops/top5.png");
+
+  clothing.push(0);
+  clothing[0]=[];
+  clothing.push(1);
+  clothing[1]=[];
+  clothing[0].push(dress3);
+  clothing[0].push(dressOne);
+  clothing[1].push(dressTwo);
+  clothing[0].push(bottomOne);
+  clothing[0].push(bottomTwo);
+  clothing[0].push(topOne);
+  clothing[0].push(topTwo);
 }
 
 function draw() {
@@ -151,8 +181,8 @@ function startScreen() {
   // background
   background(255, 201, 240);
   // draw title
-//   textFont(titleFont);
-textFont('Ariel');
+  //   textFont(titleFont);
+  textFont("Ariel");
   textSize(38);
   fill(255);
   textAlign(CENTER, CENTER);
@@ -179,10 +209,15 @@ textFont('Ariel');
   text(title[13], 450, y2 + offsetD); // U
   text(title[14], 480, y3 + offsetD); // P
 
-  if (mouseX > (width / 2) - 50 && mouseX < (width / 2) + 50 && mouseY > height - 250 && mouseY < height - 150) {
-    rotateIcon((width / 2) - 50, height - 250, 100, bow);
+  if (
+    mouseX > width / 2 - 50 &&
+    mouseX < width / 2 + 50 &&
+    mouseY > height - 250 &&
+    mouseY < height - 150
+  ) {
+    rotateIcon(width / 2 - 50, height - 250, 100, bow);
   } else {
-    image(bow, (width / 2) - 50, height - 250, 100, 100);
+    image(bow, width / 2 - 50, height - 250, 100, 100);
   }
   angle += speed; //make sure to update so we move!
 }
@@ -190,14 +225,19 @@ textFont('Ariel');
 function instructionScreen() {
   background(0);
   textSize(25);
-  textFont('Arial');
+  textFont("Arial");
   textAlign(CENTER);
   text("drag and drop clothing onto miss lizard", width / 2, height / 2);
   // button:
-  if (mouseX > (width / 2) - 50 && mouseX < (width / 2) + 50 && mouseY > height - 250 && mouseY < height - 150) {
-    rotateIcon((width / 2) - 50, height - 250, 100, bow);
+  if (
+    mouseX > width / 2 - 50 &&
+    mouseX < width / 2 + 50 &&
+    mouseY > height - 250 &&
+    mouseY < height - 150
+  ) {
+    rotateIcon(width / 2 - 50, height - 250, 100, bow);
   } else {
-    image(top1, (width / 2) - 50, height - 250, 100, 100);
+    image(top1, width / 2 - 50, height - 250, 100, 100);
   }
   if (proceedToGame == false) {
     proceedToGame = true;
@@ -209,10 +249,10 @@ function dressUpScreen() {
   // background panels and lizard:
   ///////////
 
-  // background draw: 
+  // background draw:
   // background(136, 232, 125);
   // insert image later
-   background(roombackground);
+  background(roombackground);
   image(lizardDoll, 0, 100, 450, 550);
   //width / 2, height - 400
   // right side panel:
@@ -226,108 +266,23 @@ function dressUpScreen() {
 
   // row 1:
   // rotate if hovering
-  if(dress3.intersect()){
-    dress3.rotateIcon();
-  
-  }else {
-    image(dress3.fileName, dress3.x, dress3.y, dress3.width, dress3.height);
-  }
-  if(dressOne.intersect()){
-    dressOne.rotateIcon();
-  }else{
-    image(dressOne.fileName, dressOne.x, dressOne.y, dressOne.width, dressOne.height);
-  }
 
-  if(dressTwo.intersect()){
-    dressTwo.rotateIcon();
-  }else{
-    image(dressTwo.fileName, dressTwo.x, dressTwo.y, dressTwo.width, dressTwo.height);
+  for (var i = 0; i < clothing[closetPage].length; i++) {
+    if (clothing[closetPage][i].intersect()) {
+      clothing[closetPage][i].rotateIcon();
+    } else {
+      image(
+        clothing[closetPage][i].fileName,
+        clothing[closetPage][i].x,
+        clothing[closetPage][i].y,
+        clothing[closetPage][i].width,
+        clothing[closetPage][i].height
+      );
+    }
   }
-
-  if(bottomOne.intersect()){
-    bottomOne.rotateIcon();
-  }else{
-    image(bottomOne.fileName, bottomOne.x, bottomOne.y, bottomOne.width, bottomOne.height);
-  }
-
-  if(bottomTwo.intersect()){
-    bottomTwo.rotateIcon();
-  }else{
-    image(bottomTwo.fileName, bottomTwo.x, bottomTwo.y, bottomTwo.width, bottomTwo.height);
-  }
-
-  if(topOne.intersect()){
-    topOne.rotateIcon();
-  }else{
-    image(topOne.fileName, topOne.x, topOne.y, topOne.width, topOne.height);
-  }
-
-  if(topTwo.intersect()){
-    topTwo.rotateIcon();
-  }else{
-    image(topTwo.fileName, topTwo.x, topTwo.y, topTwo.width, topTwo.height);
-  }
-
-  if(topThree.intersect()){
-    topThree.rotateIcon();
-  }else{
-    image(topThree.fileName, topThree.x, topThree.y, topThree.width, topThree.height);
-  }
-
-  if(topFour.intersect()){
-    topFour.rotateIcon();
-  }else{
-    image(topFour.fileName, topFour.x, topFour.y, topFour.width, topFour.height);
-  }
-
-  if(topFive.intersect()){
-    topFive.rotateIcon();
-  }else{
-    image(topFive.fileName, topFive.x, topFive.y, topFive.width, topFive.height);
-  }
-
-  // if (mouseX > 420 && mouseX < 560 && mouseY > 20 && mouseY < 160) {
-  //   rotateIcon(420, 20, 140, dress1);
-  // } else {
-  
-  //   image(dress1, 420, 20, 140, 140);
-  // }
-  if (mouseX >550 && mouseX < 760 && mouseY > 20 && mouseY < 160){
-    rotateIcon(550, 20, 140, dress2);
-  }else {
-    image(dress2, 550, 20, 140, 140);
-  }
-  // row 2:
-  //rotate if hovering
-  if (mouseX > 420 && mouseX < 520 && mouseY > 150 && mouseY < 250) {
-    rotateIcon(420, 150, 100, top1);
-  } else {
-    image(top1, 420, 150, 100, 100);
-  }
-  if (mouseX > 530 && mouseX < 630 && mouseY > 150 && mouseY < 250) {
-    rotateIcon(530, 150, 100, top2);
-  } else {
-    image(top2, 530, 150, 100, 100);
-  }
-//   if (mouseX > 660 && mouseX < 760 && mouseY > 150 && mouseY < 250) {
-//     rotateIcon(660, 150, 100, top3);
-//   } else {
-//     image(top3, 660, 150, 100, 100);
-//   }
 
   //row 3:
   //rotate if hovering
-  if (mouseX > 420 && mouseX < 520 && mouseY > 280 && mouseY < 380) {
-    rotateIcon(420, 280, 100, bottom1);
-  } else {
-    image(bottom1, 420, 280, 100, 100);
-  }
-
-  if (mouseX > 510 && mouseX < 710 && mouseY > 280 && mouseY < 480) {
-    rotateIcon(510, 280, 200, bottom2);
-  } else {
-    image(bottom2, 510, 280, 200, 200);
-  }
 
   // row 4:
   if (mouseX > 420 && mouseX < 570 && mouseY > 470 && mouseY < 620) {
@@ -343,7 +298,6 @@ function dressUpScreen() {
     image(accessory1, 420, 610, 100, 100);
   }
 
-
   //////////
   // displaying item of clothing on lizard:
   //////////
@@ -351,51 +305,29 @@ function dressUpScreen() {
   push();
 
   imageMode(CENTER);
-  dress3.dressOnLizard();
-  dressOne.dressOnLizard();
-  dressTwo.dressOnLizard();
-  bottomOne.bottomOnLizard();
-  bottomTwo.bottomOnLizard();
-  topOne.topOnLizard();
-  topTwo.topOnLizard();
-  topThree.topOnLizard();
-  topFour.topOnLizard();
-  topFive.topOnLizard();
 
-  if (dressLoc.x != 0 && dressLoc.y != 0) {
-    if (currentDress == "dress1" && dressOn) {
-      // image(dress1, dressLoc.x, dressLoc.y, dressSize, dressSize);
-    } else if (currentDress == "dress2" && dressOn) {
-      image(dress2, dressLoc.x, dressLoc.y, dressSize, dressSize);
-    }
+  for(var j=0; j<clothing.length; j++){
+    for (var i = 0; i < clothing[j].length; i++) {
+      clothing[j][i].clothingOnLizard();
+    } 
   }
+   
+
   if (shoeLoc.x != 0 && shoeLoc.y != 0) {
     if (currentShoe == "shoe1") {
       image(shoe1, shoeLoc.x, shoeLoc.y, shoeSize, shoeSize);
     }
   }
-  if (bottomLoc.x != 0 && bottomLoc.y != 0) {
-    if (currentBottom == "bottom1" && !dressOn) {
-      image(bottom1, bottomLoc.x, bottomLoc.y, bottomSize, bottomSize);
-    } else if (currentBottom == "bottom2" && !dressOn) {
-      image(bottom2, bottomLoc.x, bottomLoc.y, bottomSize * bigBottom, bottomSize * bigBottom);
-    }
-  }
-
-  if (topLoc.x != 0 && topLoc.y != 0) {
-    if (currentTop == "top1" && !dressOn) {
-      image(top1, topLoc.x, topLoc.y, topSize, topSize);
-    } else if (currentTop == "top2" && !dressOn) {
-      image(top2, topLoc.x, topLoc.y, topSize, topSize);
-    } 
-    // else if (currentTop == "top3" && !dressOn) {
-    //   image(top3, topLoc.x, topLoc.y, topSize * bigTop, topSize * bigTop);
-    // }
-  }
 
   if (accessoryLoc.x != 0 && accessoryLoc.y != 0) {
     if (currentAccessory == "accessory1") {
-      image(accessory1, accessoryLoc.x, accessoryLoc.y, accessorySize, accessorySize);
+      image(
+        accessory1,
+        accessoryLoc.x,
+        accessoryLoc.y,
+        accessorySize,
+        accessorySize
+      );
     }
   }
 
@@ -403,31 +335,19 @@ function dressUpScreen() {
   // displaying clothing on mouse drag:
   ///////////
 
-  if (currentClothing == "dress1") {
-    // show dress1 clothing at mouseX, mouseY
-    image(dress1, mouseX, mouseY, dressSize, dressSize);
-  } else if (currentClothing == "dress2"){
-    image(dress2, mouseX, mouseY, dressSize, dressSize);
-  }else if (currentClothing == "top1") {
-    image(top1, mouseX, mouseY, topSize, topSize);
-  } else if (currentClothing == "top2") {
-    image(top2, mouseX, mouseY, topSize, topSize);
-  } 
-//   else if (currentClothing == "top3") {
-//     image(top3, mouseX, mouseY, topSize * bigTop, topSize * bigTop);
-//   } 
-  else if (currentClothing == "bottom1") {
-    image(bottom1, mouseX, mouseY, bottomSize, bottomSize);
-  } else if (currentClothing == "bottom2") {
-    image(bottom2, mouseX, mouseY, bottomSize * bigBottom, bottomSize * bigBottom);
-  } else if (currentClothing == "shoe1") {
+  if (currentClothing == "shoe1") {
     image(shoe1, mouseX, mouseY, shoeSize, shoeSize);
   } else if (currentClothing == "accessory1") {
     image(accessory1, mouseX, mouseY, accessorySize, accessorySize);
   }
   pop();
   // option to save pic of lizard:
-  if (mouseX > 100 && mouseX < 300 && mouseY > height - 125 && mouseY < height - 75) {
+  if (
+    mouseX > 100 &&
+    mouseX < 300 &&
+    mouseY > height - 125 &&
+    mouseY < height - 75
+  ) {
     stroke(255);
     fill(255, 201, 240);
   } else {
@@ -440,155 +360,66 @@ function dressUpScreen() {
   noStroke();
   fill(0);
   text("save image", 150, height - 100);
-  if(dress3.placed){
-    image(dress3.fileName, dress3.x, dress3.y, dress3.width, dress3.height);
-  }
-  if(dressOne.placed){
-    image(dressOne.fileName, dressOne.x, dressOne.y, dressOne.width, dressOne.height);
-  }
-  if(dressTwo.placed){
-    image(dressTwo.fileName, dressTwo.x, dressTwo.y, dressTwo.width, dressTwo.height);
-  }
-  if(bottomOne.placed){
-    image(bottomOne.fileName, bottomOne.x, bottomOne.y, bottomOne.width, bottomOne.height);
-  }
-  if(bottomTwo.placed){
-    image(bottomTwo.fileName, bottomTwo.x, bottomTwo.y, bottomTwo.width, bottomTwo.height);
-  }
-  if(topOne.placed){
-    image(topOne.fileName, topOne.x, topOne.y, topOne.width, topOne.height);
-  }
-  if(topTwo.placed){
-    image(topTwo.fileName, topTwo.x, topTwo.y, topTwo.width, topTwo.height);
-  }
-  if(topThree.placed){
-    image(topThree.fileName, topThree.x, topThree.y, topThree.width, topThree.height);
-
-  if(topFour.placed){
-      image(topFour.fileName, topFour.x, topFour.y, topFour.width, topFour.height);
-
-  if(topFive.placed){
-        image(topFive.fileName, topFive.x, topFive.y, topFive.width, topFive.height);
+for(var j=0; j < clothing.length; j++){
+  for (var i = 0; i < clothing[j].length; i++) {
+    if (clothing[j][i].placed) {
+      console.log("placed");
+      image(
+        clothing[j][i].fileName,
+        clothing[j][i].x,
+        clothing[j][i].y,
+        clothing[j][i].width,
+        clothing[j][i].height
+      );
+    }
+  } 
 }
-
+  image(arrow, width-100, height-100, 100, 50);
+}
 function mousePressed() {
-
   if (screen == 2) {
-
-
-    //////////
-    // check which item of clothing we selected:
-    //////////
-
-    // dresses
-    if(dress3.intersect()){
-      dress3.active=!dress3.active;
-      console.log(dress3.active);
-    }else if(dress3.active){
-      dress3.x=mouseX-dress3.width/2;
-        dress3.y=mouseY-dress3.height/2;
-        dress3.active=!dress3.active;
+    if(mouseX>width-100 && mouseX<width && mouseY>height-100 && mouseY<height-50){
+      closetPage++;
+      if(closetPage>=2){
+        closetPage=0;
+      }
     }
-    if(dressOne.intersect()){
-      dressOne.active=!dressOne.active;
-      console.log(dressOne.active);
-    }else if(dressOne.active){
-      dressOne.x=mouseX-dressOne.width/2;
-        dressOne.y=mouseY-dressOne.height/2;
-        dressOne.active=!dressOne.active;
-    }
+    
+    for (var i = 0; i < clothing[closetPage].length; i++) {
+      var act = false;
+      for (var j = 0; j < clothing[closetPage].length; j++) {
+        if (clothing[closetPage][j].active) {
+          act = true;
+        }
+      }
 
-    if(dressTwo.intersect()){
-      dressTwo.active=!dressTwo.active;
-      console.log(dressTwo.active);
-    }else if(dressTwo.active){
-      dressTwo.x=mouseX-dressTwo.width/2;
-        dressTwo.y=mouseY-dressTwo.height/2;
-        dressTwo.active=!dressTwo.active;
+      if (act == false && clothing[closetPage][i].intersect()) {
+        clothing[closetPage][i].active = !clothing[closetPage][i].active;
+      } else if (clothing[closetPage][i].active) {
+        clothing[closetPage][i].x = mouseX - clothing[closetPage][i].width / 2;
+        clothing[closetPage][i].y = mouseY - clothing[closetPage][i].height / 2;
+        clothing[closetPage][i].active = !clothing[closetPage][i].active;
+        clothing[closetPage][i].placed = !clothing[closetPage][i].placed;
+      }
     }
 
-    // bottoms
-    if(bottomOne.intersect()){
-      bottomOne.active=!bottomOne.active;
-      console.log(bottomOne.active);
-    }else if(bottomOne.active){
-        bottomOne.x=mouseX-bottomOne.width/2;
-        bottomOne.y=mouseY-bottomOne.height/2;
-        bottomOne.active=!bottomOne.active;
- 
-    if(bottomTwo.intersect()){
-      bottomTwo.active=!bottomTwo.active;
-      console.log(bottomTwo.active);
-    }else if(bottomTwo.active){
-      bottomTwo.x=mouseX-bottomTwo.width/2;
-      bottomTwo.y=mouseY-bottomTwo.height/2;
-      bottomTwo.active=!bottomTwo.active;
+    if (topFour.intersect()) {
+      topFour.active = !topFour.active;
+    } else if (topFour.active) {
+      topFour.x = mouseX - topFour.width / 2;
+      topFour.y = mouseY - topFour.height / 2;
+      topFour.active = !topFour.active;
     }
 
-    // tops
-    if(topOne.intersect()){
-      topOne.active=!topOne.active;
-      console.log(topOne.active);
-    }else if(bottomOne.active){
-        topOne.x=mouseX-topOne.width/2;
-        topOne.y=mouseY-topOne.height/2;
-        topOne.active=!topOne.active;
+    if (topFive.intersect()) {
+      topFive.active = !topFive.active;
+    } else if (topFive.active) {
+      topFive.x = mouseX - topFive.width / 2;
+      topFive.y = mouseY - topFive.height / 2;
+      topFive.active = !topFive.active;
     }
 
-    if(topTwo.intersect()){
-      topTwo.active=!topTwo.active;
-      console.log(topTwo.active);
-    }else if(topTwo.active){
-      topTwo.x=mouseX-topTwo.width/2;
-      topTwo.y=mouseY-topTwo.height/2;
-      topTwo.active=!topTwo.active;
-    }
-
-    if(topThree.intersect()){
-      topThree.active=!topThree.active;
-      console.log(topThree.active);
-    }else if(topThree.active){
-      topThree.x=mouseX-topThree.width/2;
-      topThree.y=mouseY-topThree.height/2;
-      topThree.active=!topThree.active;
-    }
-
-    if(topFour.intersect()){
-      topFour.active=!topFour.active;
-      console.log(topFour.active);
-    }else if(topFour.active){
-      topFour.x=mouseX-topFour.width/2;
-      topFour.y=mouseY-topFour.height/2;
-      topFour.active=!topFour.active;
-    }
-
-    if(topFive.intersect()){
-      topFive.active=!topFive.active;
-      console.log(topFive.active);
-    }else if(topFive.active){
-      topFive.x=mouseX-topFive.width/2;
-      topFive.y=mouseY-topFive.height/2;
-      topFive.active=!topFive.active;
-    }
-
-
-    if (mouseX > 420 && mouseX < 560 && mouseY > 20 && mouseY < 160) {
-      // currentClothing = "dress1";
-    } else if (mouseX > 550 && mouseX < 760 && mouseY > 20 && mouseY <160) {
-      currentClothing = "dress2";
-    } else if (mouseX > 420 && mouseX < 520 && mouseY > 150 && mouseY < 250) {
-      currentClothing = "top1"
-    } else if (mouseX > 530 && mouseX < 630 && mouseY > 150 && mouseY < 250) {
-      currentClothing = "top2"
-    } 
-    // else if (mouseX > 660 && mouseX < 760 && mouseY > 150 && mouseY < 250) {
-    //   currentClothing = "top3"
-    // } 
-    else if (mouseX > 420 && mouseX < 520 && mouseY > 280 && mouseY < 380) {
-      currentClothing = "bottom1"
-    } else if (mouseX > 510 && mouseX < 710 && mouseY > 280 && mouseY < 480) {
-      currentClothing = "bottom2";
-    } else if (mouseX > 420 && mouseX < 570 && mouseY > 470 && mouseY < 620) {
+    if (mouseX > 420 && mouseX < 570 && mouseY > 470 && mouseY < 620) {
       currentClothing = "shoe1";
     } else if (mouseX > 420 && mouseX < 520 && mouseY > 610 && mouseY < 710) {
       currentClothing = "accessory1";
@@ -598,20 +429,26 @@ function mousePressed() {
 
 function mouseClicked() {
   if (screen == 2) {
-    if (mouseX > 100 && mouseX < 300 && mouseY > height - 125 && mouseY < height - 75) {
+    if (
+      mouseX > 100 &&
+      mouseX < 300 &&
+      mouseY > height - 125 &&
+      mouseY < height - 75
+    ) {
       let c = get(0, 0, 400, 670);
       saveImage.image(c, 0, 0);
-      save(saveImage, "lizard dress up" + frameCount + ".png")
+      save(saveImage, "lizard dress up" + frameCount + ".png");
     }
   }
 }
 
 function mouseReleased() {
-  if (screen == 2) { // making sure we are on dress up screen
-    
+  if (screen == 2) {
+    // making sure we are on dress up screen
+
     //////////
     // placing clothing on screen:
-    // only do so if we have actually selected an item 
+    // only do so if we have actually selected an item
     //////////
 
     if (currentClothing != " ") {
@@ -620,24 +457,32 @@ function mouseReleased() {
       var x = mouseX;
       var y = mouseY;
       //   if (currentClothing == "dress1"){
-      //     // we want to place our image 
+      //     // we want to place our image
       //   }
       placeClothing(x, y);
     }
     currentClothing = " ";
   }
   if (screen == 0) {
-    if (mouseX > (width / 2) - 50 && mouseX < (width / 2) + 50 && mouseY > height - 250 && mouseY < height - 150) {
+    if (
+      mouseX > width / 2 - 50 &&
+      mouseX < width / 2 + 50 &&
+      mouseY > height - 250 &&
+      mouseY < height - 150
+    ) {
       // movw to instructions screen
       screen = 1;
-      console.log(screen);
     }
   }
   if (screen == 1 && proceedToGame) {
-    if (mouseX > (width / 2) - 50 && mouseX < (width / 2) + 50 && mouseY > height - 250 && mouseY < height - 150) {
+    if (
+      mouseX > width / 2 - 50 &&
+      mouseX < width / 2 + 50 &&
+      mouseY > height - 250 &&
+      mouseY < height - 150
+    ) {
       // movw to instructions screen
       screen = 2;
-      console.log(screen);
     }
   }
 }
@@ -646,32 +491,6 @@ function placeClothing(x, y) {
   ///////////
   // place clothing and udate variables associated w item:
   //////////
-
-  if (currentClothing == "dress1" || currentClothing == "dress2") {
-    dressLoc.x = x;
-    dressLoc.y = y;
-    currentDress = currentClothing;
-    dressOn = true;
-    // wipe the top and bottom varibles 
-    topLoc.x = 0;
-    topLoc.y = 0;
-    currentTop = " ";
-    bottomLoc.x = 0;
-    bottomLoc.y = 0;
-    currentBottom = " ";
-  }
-  if (currentClothing == "top1" || currentClothing == "top2" || currentClothing == "top3") {
-    topLoc.x = x;
-    topLoc.y = y;
-    currentTop = currentClothing;
-    dressOn = false;
-  }
-  if (currentClothing == "bottom1" || currentClothing == "bottom2") {
-    bottomLoc.x = x;
-    bottomLoc.y = y;
-    currentBottom = currentClothing;
-    dressOn = false;
-  }
 
   if (currentClothing == "shoe1") {
     shoeLoc.x = x;
@@ -699,6 +518,5 @@ function rotateIcon(x, y, size, img) {
   rotate(currentAngle);
   image(img, 0, 0, size, size);
   currentAngle += rSpeed;
-  // console.log(currentAngle);
   pop();
 }

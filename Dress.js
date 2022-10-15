@@ -5,7 +5,7 @@ class Dress {
     this.fileName = loadImage(fileName);
     this.width = 250;
     this.height = 300;
-    this.size = 250;
+    this.size = 100;
     this.currentAngle = 0;
     this.rMin = -5;
     this.rMax = 5;
@@ -14,12 +14,16 @@ class Dress {
     this.placed = false;
   }
   intersect() {
-    var d = dist(this.x, this.y, mouseX, mouseY);
-    console.log("intersect");
-    return d < this.width && d > this.x;
+    if (mouseX > this.x && mouseX < this.x+this.width && mouseY > this.y && mouseY < this.y+this.height){
+      return true 
+    } else {
+      return false
+    }
+    // var d = dist(this.x, this.y, mouseX, mouseY);
+    // return d < this.size+mouseX;
   }
-  dressOnLizard() {
-      console.log(this.active);
+  clothingOnLizard() {
+     
       imageMode(CENTER);
     if (this.active) {
       
