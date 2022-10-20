@@ -2,7 +2,7 @@
 // clothes get 350, dress1 gets 250 for width
 // item types: dresses, tops, bottoms, shoes, purses, jewelry
 
-var screen = 0; // 0 is title screen, 1 is instructions, 2 is game play
+var screen = "home"; // 0 is title screen, 1 is instructions, 2 is game play
 // variables for title
 var title = [
   "L",
@@ -49,6 +49,8 @@ var sun;
 var mall;
 var phone;
 var menubackground;
+
+var exitButton;
 
 function preload() {
   lizardDoll = loadImage("lizarddoll.png");
@@ -115,25 +117,37 @@ function setup() {
 
   home = new Button(300, 100, 100, 100, "menu/home.png");
   sun = new Button(100, 100, 100, 100, "menu/thesun.png");
-  mall = new Button(100, 100, 100, 100, "menu/themall.png");
+  mall = new Button(500, 500, 100, 100, "menu/themall.png");
   phone = new Button(100, 100, 100, 100, "menu/phonecool.png");
+
+  exitButton = new Button(20, 20, 100, 100, "bow.png");
 }
 
 function draw() {
   switch (screen) {
-    case 0:
+    case "home":
       menuScreen();
       break;
-    case 1:
+    case "dress up title":
       startScreen();
       break;
-    case 2:
+    case "instructions dress up":
       instructionScreen();
       break;
-    case 3:
+    case "dress up game":
       dressUpScreen();
       break;
+    case "nail title":
+      startScreen();
+      break;
+    case "nail instructions":
+      instructionScreen();
+      break;
+    case "nail game":
+      nailGameScreen();
+      break;
   }
+image(exitButton.fileName, exitButton.x, exitButton.y, exitButton.width, exitButton.height);
 }
 
 function menuScreen() {
@@ -271,28 +285,62 @@ function dressUpScreen() {
   }
   image(arrow.fileName, arrow.x, arrow.y, arrow.width, arrow.height);
 }
+
+function nailGameScreen(){
+background(255);
+image(lizardDoll, 100, 100, 250, 250);
+}
+
 function mousePressed() {
-  if (screen == 0) {
+  //switches screens dpending on which screen it is
+  if (screen == "home") {
     if (home.intersect()) {
-      screen = 1;
+      screen = "dress up title";
+    }
+    if (mall.intersect()) {
+      screen = "nail title";
+    }
+  } else if (screen == "dress up title") {
+    if (bow.intersect()) {
+      screen = "instructions dress up";
+    }
+  } else if (screen == "instructions dress up") {
+    if (bow.intersect()) {
+      screen = "dress up game";
+    }
+  } else if (screen == "nail instructions") {
+    if (bow.intersect()) {
+      screen = "nail game";
     }
   }
-  if (screen == 2) {
+  else if(screen =="nail title"){
+    if (bow.intersect()){
+      screen = "nail instructions";
+    }
+  }
+    if(exitButton.intersect()){
+      screen = "home"
+    }
+  // switch closet page in dress up game
+  if (screen == "dress up game") {
     if (arrow.intersect()) {
       closetPage++;
       if (closetPage >= 2) {
         closetPage = 0;
       }
     }
-
+    // j for loop checks if anything picked up previously, i for loop to pick up item; makes it so we can only pick up one item at a time
+    // goes through every clothing item on specific closet page
     for (var i = 0; i < clothing[closetPage].length; i++) {
+      //checking if clothing is active
       var act = false;
+      // j is iterator to go through clothing items independent of other for loop
       for (var j = 0; j < clothing[closetPage].length; j++) {
         if (clothing[closetPage][j].active) {
           act = true;
         }
       }
-
+      // main interator we are checking against to see if clothing item we are trying to access is not active already
       if (act == false && clothing[closetPage][i].intersect()) {
         clothing[closetPage][i].active = true;
       }
@@ -301,7 +349,7 @@ function mousePressed() {
 }
 
 function mouseClicked() {
-  if (screen == 2) {
+  if (screen == "instructions dress up") {
     if (
       mouseX > 100 &&
       mouseX < 300 &&
@@ -317,7 +365,7 @@ function mouseClicked() {
 
 function mouseReleased() {
   //shows clothing on doll when mouse released
-  if (screen == 2) {
+  if (screen == "dress up game") {
     for (var i = 0; i < clothing[closetPage].length; i++) {
       if (clothing[closetPage][i].active) {
         clothing[closetPage][i].x = mouseX - clothing[closetPage][i].width / 2;
@@ -325,28 +373,6 @@ function mouseReleased() {
         clothing[closetPage][i].active = false;
         clothing[closetPage][i].placed = true;
       }
-    }
-  }
-  if (screen == 0) {
-    if (
-      mouseX > width / 2 - 50 &&
-      mouseX < width / 2 + 50 &&
-      mouseY > height - 250 &&
-      mouseY < height - 150
-    ) {
-      // movw to instructions screen
-      screen = 1;
-    }
-  }
-  if (screen == 1 && proceedToGame) {
-    if (
-      mouseX > width / 2 - 50 &&
-      mouseX < width / 2 + 50 &&
-      mouseY > height - 250 &&
-      mouseY < height - 150
-    ) {
-      // movw to instructions screen
-      screen = 3;
     }
   }
 }
