@@ -53,15 +53,75 @@ var menubackground;
 var exitButton;
 
 var lizardhand;
+var lizardhandx = 400;
+var lizardhandy = 100;
+var lizardhandsize = 900;
 var colorchart;
 var swatches = [];
 
+var nailFilePath;
+
+var nails = [];
+var nailtest;
+
+var nailcolor = [];
+
+var pets = [];
+var petColors = [];
+var petFileNames = [];
+
 function preload() {
+  nailFilePath = "nailgame/nailcolors/nail";
   lizardDoll = loadImage("lizarddoll.png");
   roombackground = loadImage("roombackground.png");
   menubackground = loadImage("menu/background.png");
   lizardhand = loadImage("nailgame/lizardhand.png");
-  colorchart=loadImage("nailgame/colorchart.png");
+  colorchart = loadImage("nailgame/colorchart.png");
+  nailtest = loadImage("nailgame/nailcolors/nail1color12.png");
+  nailcolor.push(0);
+  nailcolor[0] = [];
+  nailcolor.push(0);
+  nailcolor[1] = [];
+  nailcolor.push(0);
+  nailcolor[2] = [];
+  nailcolor.push(0);
+  nailcolor[3] = [];
+  nailcolor.push(0);
+  nailcolor[4] = [];
+  for (var i = 1; i <= 5; i++) {
+    for (var j = 1; j <= 22; j++) {
+      nailcolor[i - 1].push(loadImage(nailFilePath + i + "color" + j + ".png"));
+    }
+  }
+  petFileNames.push(loadImage("bugs/ant1.png"));
+  petFileNames.push(loadImage("bugs/ant2.png"));
+  petFileNames.push(loadImage("bugs/ant3.png"));
+  petFileNames.push(loadImage("bugs/beetle1.png"));
+  petFileNames.push(loadImage("bugs/beetle2.png"));
+  petFileNames.push(loadImage("bugs/beetle3.png"));
+  petFileNames.push(loadImage("bugs/caterpillar1.png"));
+  petFileNames.push(loadImage("bugs/caterpillar2.png"));
+  petFileNames.push(loadImage("bugs/caterpillar3.png"));
+  petFileNames.push(loadImage("bugs/grasshopper1.png"));
+  petFileNames.push(loadImage("bugs/grasshopper2.png"));
+  petFileNames.push(loadImage("bugs/grasshopper3.png"));
+  petFileNames.push(loadImage("bugs/ladybug1.png"));
+  petFileNames.push(loadImage("bugs/ladybug2.png"));
+  petFileNames.push(loadImage("bugs/ladybug3.png"));
+  petFileNames.push(loadImage("bugs/worm1.png"));
+  petFileNames.push(loadImage("bugs/worm2.png"));
+  petFileNames.push(loadImage("bugs/worm3.png"));
+  var count=0;
+  for(var i=0; i<petFileNames.length; i+=3 ){
+    if(i<=6){
+      pets.push(new pet(100 + (i*100), 100, 200, 200, petFileNames[i]));
+    }else{
+      pets.push(new pet(100 + (count*100), 400, 200, 200, petFileNames[i]));
+      count+=3;
+      console.log(count);
+    }
+    
+  }
 }
 
 function setup() {
@@ -69,73 +129,110 @@ function setup() {
   angleMode(DEGREES);
   saveImage = createGraphics(400, 670);
 
-  var dress3 = new Clothing(1220, 80, 250, 300, "clothing/dresses/dress3.png");
-  var dressOne = new Clothing(1330,80,250, 300, "clothing/dresses/dress1.png");
-  var dressTwo = new Clothing(1440, 80, 250, 300, "clothing/dresses/dress2.png");
+  var dress3 = new Clothing(1220, 80, 300, 300, "clothing/dresses/dress3.png");
+  var dressOne = new Clothing(
+    1330,
+    80,
+    250,
+    250,
+    "clothing/dresses/dress1.png"
+  );
+  var dressTwo = new Clothing(
+    1440,
+    80,
+    235,
+    235,
+    "clothing/dresses/dress2.png"
+  );
 
-  var bottomOne = new Clothing(490,340,100,100,"clothing/bottoms/bottom1.png");
-  var bottomTwo = new Clothing(520,320, 200,200,"clothing/bottoms/bottom2.png");
+  var bottomOne = new Clothing(
+    490,
+    340,
+    120,
+    120,
+    "clothing/bottoms/bottom1.png"
+  );
+  var bottomTwo = new Clothing(
+    520,
+    320,
+    240,
+    240,
+    "clothing/bottoms/bottom2.png"
+  );
 
-  var topOne = new Clothing(520, 70, 120, 120, "clothing/tops/top1.png");
-  var topTwo = new Clothing(620, 70, 80, 80, "clothing/tops/top2.png");
-  var topThree = new Clothing(720, 70, 110, 110, "clothing/tops/top3.png");
-  var topFour = new Clothing(820, 70, 100, 100, "clothing/tops/top4.png");
-  var topFive = new Clothing(920, 70, 100, 100, "clothing/tops/top5.png");
+  var topOne = new Clothing(520, 70, 160, 160, "clothing/tops/top1.png");
+  var topTwo = new Clothing(620, 70, 100, 100, "clothing/tops/top2.png");
+  var topThree = new Clothing(720, 70, 140, 140, "clothing/tops/top3.png");
+  var topFour = new Clothing(820, 70, 120, 120, "clothing/tops/top4.png");
+  var topFive = new Clothing(920, 70, 140, 140, "clothing/tops/top5.png");
 
-  var shoeOne = new Clothing(1300, 500, 140, 140, "clothing/shoes/shoe1.png");
+  var shoeOne = new Clothing(1300, 500, 180, 180, "clothing/shoes/shoe1.png");
 
   clothing.push(0);
   clothing[0] = [];
   clothing.push(1);
   clothing[1] = [];
+
+  clothing[0].push(shoeOne);
+
+  clothing[0].push(bottomTwo);
+  clothing[0].push(bottomOne);
+
   clothing[0].push(dress3);
   clothing[0].push(dressOne);
   clothing[0].push(dressTwo);
-  clothing[0].push(bottomOne);
-  clothing[0].push(bottomTwo);
-  clothing[0].push(topOne);
+
   clothing[0].push(topTwo);
   clothing[0].push(topThree);
   clothing[0].push(topFour);
   clothing[1].push(topFive);
-  clothing[0].push(shoeOne);
+
+  clothing[0].push(topOne);
 
   bow = new Button(width / 2 - 50, height - 250, 100, 100, "bow.png");
   arrow = new Button(width - 100, height - 100, 100, 50, "arrow.png");
 
-  home = new Button(300, 100, 100, 100, "menu/home.png");
-  sun = new Button(100, 100, 100, 100, "menu/thesun.png");
-  mall = new Button(500, 500, 100, 100, "menu/themall.png");
-  phone = new Button(100, 100, 100, 100, "menu/phonecool.png");
+  home = new Button(100, 400, 350, 350, "menu/home.png");
+  sun = new Button(100, 100, 300, 300, "menu/sun.png");
+  mall = new Button(600, 300, 350, 350, "menu/themall.png");
+  phone = new Button(1150, 450, 250, 250, "menu/phonecool.png");
 
   exitButton = new Button(20, 20, 100, 100, "bow.png");
 
   // making new swatches
   // when adding new swatch, make this first
-  // then add swatch to array
+  // then push swatch to array
   var darkPink = new swatch(1200, 260, "nailgame/swatches/color1swatch.png");
   var babyBlue = new swatch(1100, 320, "nailgame/swatches/color2swatch.png");
   var peach = new swatch(1140, 310, "nailgame/swatches/color3swatch.png");
-  var darkBrown = new swatch(1180,310, "nailgame/swatches/color4swatch.png" );
+  var darkBrown = new swatch(1180, 310, "nailgame/swatches/color4swatch.png");
   var darkGreen = new swatch(1215, 315, "nailgame/swatches/color5swatch.png");
   var brightPink = new swatch(1245, 320, "nailgame/swatches/color6swatch.png");
-  var orange = new swatch (1095, 370, "nailgame/swatches/color7swatch.png");
-  var blue = new swatch (1125, 365, "nailgame/swatches/color8swatch.png");
-  var lavender = new swatch (1160, 370, "nailgame/swatches/color9swatch.png");
-  var cream = new swatch (1195, 370, "nailgame/swatches/color10swatch.png");
-  var brightGreen = new swatch (1220, 380, "nailgame/swatches/color11swatch.png");
-  var purple = new swatch (1270, 395, "nailgame/swatches/color12swatch.png");
-  var lightBrown = new swatch (1060, 415, "nailgame/swatches/color13swatch.png");
-  var brightYellow = new swatch (1095, 415, "nailgame/swatches/color14swatch.png");
-  var lightPink = new swatch (1113, 425, "nailgame/swatches/color15swatch.png");
-  var red = new swatch (1150, 430, "nailgame/swatches/color16swatch.png");
-  var yellow = new swatch (1180, 435, "nailgame/swatches/color17swatch.png");
-  var khaki = new swatch (1220, 435, "nailgame/swatches/color18swatch.png");
-  var white = new swatch (1250, 440, "nailgame/swatches/color19swatch.png");
-  var darkBlue = new swatch (1125, 490, "nailgame/swatches/color20swatch.png");
-  var grey = new swatch (1170, 490, "nailgame/swatches/color21swatch.png");
-  var black = new swatch (1210, 500, "nailgame/swatches/color22swatch.png");
-  
+  var orange = new swatch(1095, 370, "nailgame/swatches/color7swatch.png");
+  var blue = new swatch(1125, 365, "nailgame/swatches/color8swatch.png");
+  var lavender = new swatch(1160, 370, "nailgame/swatches/color9swatch.png");
+  var cream = new swatch(1195, 370, "nailgame/swatches/color10swatch.png");
+  var brightGreen = new swatch(
+    1220,
+    380,
+    "nailgame/swatches/color11swatch.png"
+  );
+  var purple = new swatch(1270, 395, "nailgame/swatches/color12swatch.png");
+  var lightBrown = new swatch(1060, 415, "nailgame/swatches/color13swatch.png");
+  var brightYellow = new swatch(
+    1095,
+    415,
+    "nailgame/swatches/color14swatch.png"
+  );
+  var lightPink = new swatch(1113, 425, "nailgame/swatches/color15swatch.png");
+  var red = new swatch(1150, 430, "nailgame/swatches/color16swatch.png");
+  var yellow = new swatch(1180, 435, "nailgame/swatches/color17swatch.png");
+  var khaki = new swatch(1220, 435, "nailgame/swatches/color18swatch.png");
+  var white = new swatch(1250, 440, "nailgame/swatches/color19swatch.png");
+  var darkBlue = new swatch(1125, 490, "nailgame/swatches/color20swatch.png");
+  var grey = new swatch(1170, 490, "nailgame/swatches/color21swatch.png");
+  var black = new swatch(1210, 500, "nailgame/swatches/color22swatch.png");
+
   swatches.push(darkPink);
   swatches.push(babyBlue);
   swatches.push(peach);
@@ -159,34 +256,47 @@ function setup() {
   swatches.push(grey);
   swatches.push(black);
 
+  for (var i = 0; i < 5; i++) {
+    nails.push(nailcolor[i][3]);
+  }
 }
 
 function draw() {
   // switch (screen) {
-  //   case "home":
-  //     menuScreen();
-  //     break;
-  //   case "dress up title":
-  //     startScreen();
-  //     break;
-  //   case "instructions dress up":
-  //     instructionScreen();
-  //     break;
-  //   case "dress up game":
-  //     dressUpScreen();
-  //     break;
-  //   case "nail title":
-  //     startScreen();
-  //     break;
-  //   case "nail instructions":
-  //     instructionScreen();
-  //     break;
-  //   case "nail game":
-  //     nailGameScreen();
-  //     break;
+  // case "home":
+  //   menuScreen();
+  //   break;
+  // case "dress up title":
+  //   startScreen();
+  //   break;
+  // case "instructions dress up":
+  //   instructionScreen();
+  //   break;
+  // case "dress up game":
+  //   dressUpScreen();
+  //   break;
+  // case "nail title":
+  //   startScreen();
+  //   break;
+  // case "nail instructions":
+  //   instructionScreen();
+  //   break;
+  // case "nail game":
+  //   nailGameScreen();
+  //   break;
+  // case "pet store":
+  //   petStoreScreen();
+  //   break;
   // }
-  nailGameScreen();
-image(exitButton.fileName, exitButton.x, exitButton.y, exitButton.width, exitButton.height);
+  petStoreScreen();
+  imageMode(CORNER);
+  image(
+    exitButton.fileName,
+    exitButton.x,
+    exitButton.y,
+    exitButton.width,
+    exitButton.height
+  );
 }
 
 function menuScreen() {
@@ -251,7 +361,7 @@ function dressUpScreen() {
   // background panels and lizard:
   ///////////
   background(roombackground);
-  image(lizardDoll, 0, 100, 450, 550);
+  image(lizardDoll, 0, 150, 550, 550);
 
   ///////////
   // right panel images:
@@ -284,8 +394,6 @@ function dressUpScreen() {
       clothing[j][i].clothingOnLizard();
     }
   }
-
-
 
   ///////////
   // displaying clothing on mouse drag:
@@ -327,17 +435,46 @@ function dressUpScreen() {
   image(arrow.fileName, arrow.x, arrow.y, arrow.width, arrow.height);
 }
 
-function nailGameScreen(){
-imageMode(CORNER);
-background(255);
-image(lizardhand, 400, 100, 900, 900);
-image(colorchart, 1000,200, 400, 400);
-for(var i=0; i<swatches.length; i++){
-swatches[i].show();
+function nailGameScreen() {
+  imageMode(CORNER);
+  background(255);
+  image(lizardhand, lizardhandx, lizardhandy, lizardhandsize, lizardhandsize);
+  image(colorchart, 1000, 200, 400, 400);
+  for (var i = 0; i < swatches.length; i++) {
+    swatches[i].show();
+  }
+  for (var j = 0; j < swatches.length; j++) {
+    swatches[j].clothingOnLizard();
+  }
+
+  imageMode(CORNER);
+  for (var k = 0; k < nails.length; k++) {
+    image(nails[k], lizardhandx, lizardhandy, lizardhandsize, lizardhandsize);
+  }
 }
-for (var j = 0; j < swatches.length; j++) {
-  swatches[j].clothingOnLizard();
-}
+
+function petStoreScreen() {
+  background(255);
+  for(var i=0; i<pets.length; i++){
+    pets[i].show();
+    if (pets[i].intersect() && mouseIsPressed) {
+      console.log("test");
+      if (petColors == undefined || petColors.length == 0) {
+        console.log(petFileNames[i*3]);
+        petColors.push(new pet(200, 200, 200, 200, petFileNames[i*3]));
+        petColors.push(new pet(200, 300, 200, 200, petFileNames[(i*3)+1]));
+        petColors.push(new pet(200, 400, 200, 200, petFileNames[(i*3)+2]));
+      }
+    } else if (mouseIsPressed) {
+      petColors.splice(0);
+    } 
+  }
+ 
+   if (petColors.length > 0) {
+    petColors[0].show();
+    petColors[1].show();
+    petColors[2].show();
+  }
 }
 
 function mousePressed() {
@@ -361,15 +498,14 @@ function mousePressed() {
     if (bow.intersect()) {
       screen = "nail game";
     }
-  }
-  else if(screen =="nail title"){
-    if (bow.intersect()){
+  } else if (screen == "nail title") {
+    if (bow.intersect()) {
       screen = "nail instructions";
     }
   }
-    if(exitButton.intersect()){
-      screen = "home"
-    }
+  if (exitButton.intersect()) {
+    screen = "home";
+  }
   // switch closet page in dress up game
   if (screen == "dress up game") {
     if (arrow.intersect()) {
@@ -396,9 +532,9 @@ function mousePressed() {
     }
   }
   // this is the nail game image detection
-  for(var i=0; i<swatches.length; i++){
-    if(swatches[i].intersect()){
-      swatches[i].active=true;
+  for (var i = 0; i < swatches.length; i++) {
+    if (swatches[i].intersect()) {
+      swatches[i].active = true;
       console.log("test");
     }
   }
@@ -433,10 +569,26 @@ function mouseReleased() {
   }
   for (var i = 0; i < swatches.length; i++) {
     if (swatches[i].active) {
-      swatches[i].x = mouseX - swatches[i].width / 2;
-      swatches[i].y = mouseY - swatches[i].height / 2;
+      swatches[i].x = swatches[i].originalx;
+      swatches[i].y = swatches[i].originaly;
       swatches[i].active = false;
       swatches[i].placed = true;
+      if (mouseX > 550 && mouseX < 650) {
+        nails[0] = nailcolor[0][i];
+        // nailgame/nailcolors/nail1color1.png
+      } else if (mouseX >= 650 && mouseX < 760) {
+        console.log("nail2");
+        nails[1] = nailcolor[1][i];
+      } else if (mouseX >= 760 && mouseX < 870) {
+        console.log("nail3");
+        nails[2] = nailcolor[2][i];
+      } else if (mouseX >= 870 && mouseX < 1000) {
+        console.log("nail4");
+        nails[3] = nailcolor[3][i];
+      } else if (mouseX > 1000 && mouseX < 1080) {
+        console.log("nail5");
+        nails[4] = nailcolor[4][i];
+      }
     }
   }
 }

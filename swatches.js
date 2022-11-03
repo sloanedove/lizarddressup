@@ -18,6 +18,8 @@ class swatch {
       this.rSpeed = 1; //how fast its rotating
       this.active = false; //if the item is being dragged
       this.placed = false; //if the item is placed
+      this.originalx=x;
+      this.originaly=y;
     }
   
     /**
