@@ -69,9 +69,11 @@ var nailcolor = [];
 var pets = [];
 var petColors = [];
 var petFileNames = [];
+var petstore;
 
 function preload() {
   nailFilePath = "nailgame/nailcolors/nail";
+  petstore=loadImage("petstore.jpg");
   lizardDoll = loadImage("lizarddoll.png");
   roombackground = loadImage("roombackground.png");
   menubackground = loadImage("menu/background.png");
@@ -129,7 +131,7 @@ function setup() {
   angleMode(DEGREES);
   saveImage = createGraphics(400, 670);
 
-  var dress3 = new Clothing(1220, 80, 300, 300, "clothing/dresses/dress3.png");
+  var dress3 = new Clothing(1160, 80, 300, 300, "clothing/dresses/dress3.png");
   var dressOne = new Clothing(
     1330,
     80,
@@ -138,7 +140,7 @@ function setup() {
     "clothing/dresses/dress1.png"
   );
   var dressTwo = new Clothing(
-    1440,
+    1480,
     80,
     235,
     235,
@@ -146,28 +148,28 @@ function setup() {
   );
 
   var bottomOne = new Clothing(
-    490,
+    510,
     340,
     120,
     120,
     "clothing/bottoms/bottom1.png"
   );
   var bottomTwo = new Clothing(
-    520,
+    570,
     320,
     240,
     240,
     "clothing/bottoms/bottom2.png"
   );
 
-  var topOne = new Clothing(520, 70, 160, 160, "clothing/tops/top1.png");
-  var topTwo = new Clothing(620, 70, 100, 100, "clothing/tops/top2.png");
-  var topThree = new Clothing(720, 70, 140, 140, "clothing/tops/top3.png");
-  var topFour = new Clothing(820, 70, 120, 120, "clothing/tops/top4.png");
-  var topFive = new Clothing(920, 70, 140, 140, "clothing/tops/top5.png");
+  var topOne = new Clothing(480, 70, 160, 160, "clothing/tops/top1.png");
+  var topTwo = new Clothing(640, 70, 100, 100, "clothing/tops/top2.png");
+  var topThree = new Clothing(700, 70, 140, 140, "clothing/tops/top3.png");
+  var topFour = new Clothing(830, 70, 120, 120, "clothing/tops/top4.png");
+  var topFive = new Clothing(940, 70, 140, 140, "clothing/tops/top5.png");
 
   var shoeOne = new Clothing(1300, 500, 180, 180, "clothing/shoes/shoe1.png");
-
+  
   clothing.push(0);
   clothing[0] = [];
   clothing.push(1);
@@ -188,6 +190,8 @@ function setup() {
   clothing[1].push(topFive);
 
   clothing[0].push(topOne);
+
+  
 
   bow = new Button(width / 2 - 50, height - 250, 100, 100, "bow.png");
   arrow = new Button(width - 100, height - 100, 100, 50, "arrow.png");
@@ -454,7 +458,7 @@ function nailGameScreen() {
 }
 
 function petStoreScreen() {
-  background(255);
+  // background(petstore);
   for(var i=0; i<pets.length; i++){
     pets[i].show();
     if (pets[i].intersect() && mouseIsPressed) {
