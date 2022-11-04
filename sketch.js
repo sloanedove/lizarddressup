@@ -73,7 +73,7 @@ var petstore;
 
 function preload() {
   nailFilePath = "nailgame/nailcolors/nail";
-  petstore=loadImage("petstore.jpg");
+  petstore=loadImage("petstore.png");
   lizardDoll = loadImage("lizarddoll.png");
   roombackground = loadImage("roombackground.png");
   menubackground = loadImage("menu/background.png");
@@ -169,6 +169,8 @@ function setup() {
   var topFive = new Clothing(940, 70, 140, 140, "clothing/tops/top5.png");
 
   var shoeOne = new Clothing(1300, 500, 180, 180, "clothing/shoes/shoe1.png");
+
+  var accessory1 = new Clothing(500, 500, 180, 180, "accessories/accesory1.png");
   
   clothing.push(0);
   clothing[0] = [];
@@ -190,6 +192,7 @@ function setup() {
   clothing[1].push(topFive);
 
   clothing[0].push(topOne);
+  clothing[0].push(accessory1);
 
   
 
@@ -223,11 +226,7 @@ function setup() {
   );
   var purple = new swatch(1270, 395, "nailgame/swatches/color12swatch.png");
   var lightBrown = new swatch(1060, 415, "nailgame/swatches/color13swatch.png");
-  var brightYellow = new swatch(
-    1095,
-    415,
-    "nailgame/swatches/color14swatch.png"
-  );
+  var brightYellow = new swatch(1095,415, "nailgame/swatches/color14swatch.png");
   var lightPink = new swatch(1113, 425, "nailgame/swatches/color15swatch.png");
   var red = new swatch(1150, 430, "nailgame/swatches/color16swatch.png");
   var yellow = new swatch(1180, 435, "nailgame/swatches/color17swatch.png");
@@ -458,7 +457,7 @@ function nailGameScreen() {
 }
 
 function petStoreScreen() {
-  // background(petstore);
+  background(petstore);
   for(var i=0; i<pets.length; i++){
     pets[i].show();
     if (pets[i].intersect() && mouseIsPressed) {
