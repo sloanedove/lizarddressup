@@ -31,7 +31,6 @@ var angle = 0;
 var offset = 300;
 var scalar = 40;
 var speed = 8;
-var roombackground;
 // variables for buttons:
 var proceedToGame = false;
 var saveImage; // variable for saving pic of lizard
@@ -48,7 +47,10 @@ var home;
 var sun;
 var mall;
 var phone;
-var menubackground;
+// every time add new background image, add here
+var menubackground, mallbackground, roombackground;
+// mall button variables
+var nailsalonbutton, clothingstorebutton, petstorebutton, tattooparlorbutton;
 
 var exitButton;
 
@@ -71,15 +73,22 @@ var petColors = [];
 var petFileNames = [];
 var petstore;
 
+var avatarlizard;
+
 function preload() {
   nailFilePath = "nailgame/nailcolors/nail";
-  petstore=loadImage("petstore.png");
+  petstore = loadImage("backgrounds/petstore.png");
   lizardDoll = loadImage("lizarddoll.png");
-  roombackground = loadImage("roombackground.png");
+
+  // loading images for background variables
+  roombackground = loadImage("backgrounds/roombackground.png");
   menubackground = loadImage("menu/background.png");
+  mallbackground = loadImage("backgrounds/mallstores.png");
+
   lizardhand = loadImage("nailgame/lizardhand.png");
   colorchart = loadImage("nailgame/colorchart.png");
   nailtest = loadImage("nailgame/nailcolors/nail1color12.png");
+
   nailcolor.push(0);
   nailcolor[0] = [];
   nailcolor.push(0);
@@ -98,37 +107,63 @@ function preload() {
   petFileNames.push(loadImage("bugs/ant1.png"));
   petFileNames.push(loadImage("bugs/ant2.png"));
   petFileNames.push(loadImage("bugs/ant3.png"));
-  petFileNames.push(loadImage("bugs/beetle1.png"));
-  petFileNames.push(loadImage("bugs/beetle2.png"));
-  petFileNames.push(loadImage("bugs/beetle3.png"));
-  petFileNames.push(loadImage("bugs/caterpillar1.png"));
-  petFileNames.push(loadImage("bugs/caterpillar2.png"));
-  petFileNames.push(loadImage("bugs/caterpillar3.png"));
-  petFileNames.push(loadImage("bugs/grasshopper1.png"));
-  petFileNames.push(loadImage("bugs/grasshopper2.png"));
-  petFileNames.push(loadImage("bugs/grasshopper3.png"));
   petFileNames.push(loadImage("bugs/ladybug1.png"));
   petFileNames.push(loadImage("bugs/ladybug2.png"));
   petFileNames.push(loadImage("bugs/ladybug3.png"));
+  petFileNames.push(loadImage("bugs/caterpillar1.png"));
+  petFileNames.push(loadImage("bugs/caterpillar2.png"));
+  petFileNames.push(loadImage("bugs/caterpillar3.png"));
   petFileNames.push(loadImage("bugs/worm1.png"));
   petFileNames.push(loadImage("bugs/worm2.png"));
   petFileNames.push(loadImage("bugs/worm3.png"));
-  var count=0;
-  for(var i=0; i<petFileNames.length; i+=3 ){
-    if(i<=6){
-      pets.push(new pet(100 + (i*100), 100, 200, 200, petFileNames[i]));
-    }else{
-      pets.push(new pet(100 + (count*100), 400, 200, 200, petFileNames[i]));
-      count+=3;
-      console.log(count);
-    }
-    
-  }
+  petFileNames.push(loadImage("bugs/beetle1.png"));
+  petFileNames.push(loadImage("bugs/beetle2.png"));
+  petFileNames.push(loadImage("bugs/beetle3.png"));
+  petFileNames.push(loadImage("bugs/grasshopper1.png"));
+  petFileNames.push(loadImage("bugs/grasshopper2.png"));
+  petFileNames.push(loadImage("bugs/grasshopper3.png"));
+
+  var count = 0;
+  // for (var i = 0; i < petFileNames.length; i += 3) {
+  //   if (i <= 6) {
+  //     pets.push(new pet(300 + i * 100, 100, 200, 200, petFileNames[i]));
+  //   } else {
+  //     pets.push(new pet(100 + count * 100, 400, 200, 200, petFileNames[i]));
+  //     count += 3;
+  //     console.log(count);
+  //   }
+  // }
+
+  // add all pets here 
+  pets.push(new pet(400, 250, 200, 200, petFileNames[1]));
+  pets.push(new pet(800, 250, 200, 200, petFileNames[4]));
+  pets.push(new pet(1200, 240, 200, 200, petFileNames[7]));
+  pets.push(new pet(450, 500, 200, 200, petFileNames[9]));
+  pets.push(new pet(800, 450, 200, 200, petFileNames[13]));
+  pets.push(new pet(1200, 470, 200, 200, petFileNames[15]))
+
+  // this is all of the buttons
+  bow = new Button(1772 / 2 - 50, 900 - 250, 100, 100, "buttons/bow.png");
+  arrow = new Button(1772 - 100, 900 - 100, 100, 50, "buttons/arrow.png");
+
+  home = new Button(100, 400, 350, 350, "menu/home.png");
+  sun = new Button(100, 100, 300, 300, "menu/sun.png");
+  mall = new Button(600, 300, 350, 350, "menu/themall.png");
+  phone = new Button(1150, 450, 250, 250, "menu/phonecool.png");
+
+  nailsalonbutton = new Button(0, 0, 300, 300, "buttons/nailsalon.png");
+  clothingstorebutton = new Button(200, 0, 300, 300, "buttons/clothingstore.png");
+  petstorebutton = new Button(0, 300, 300, 300, "buttons/petstorefront.png");
+  tattooparlorbutton = new Button(1772-500, 0, 500, 500, "buttons/tattooparlor.png");
+
+
+  exitButton = new Button(20, 20, 100, 100, "buttons/bow.png");
 }
 
 function setup() {
   createCanvas(1772, 900);
   angleMode(DEGREES);
+  avatarlizard = new avatar(lizardDoll);
   saveImage = createGraphics(400, 670);
 
   var dress3 = new Clothing(1160, 80, 300, 300, "clothing/dresses/dress3.png");
@@ -170,8 +205,14 @@ function setup() {
 
   var shoeOne = new Clothing(1300, 500, 180, 180, "clothing/shoes/shoe1.png");
 
-  var accessory1 = new Clothing(500, 500, 180, 180, "accessories/accesory1.png");
-  
+  // var accessory1 = new Clothing(
+  //   500,
+  //   500,
+  //   180,
+  //   180,
+  //   "accessories/accesory1.png"
+  // );
+
   clothing.push(0);
   clothing[0] = [];
   clothing.push(1);
@@ -192,19 +233,6 @@ function setup() {
   clothing[1].push(topFive);
 
   clothing[0].push(topOne);
-  clothing[0].push(accessory1);
-
-  
-
-  bow = new Button(width / 2 - 50, height - 250, 100, 100, "bow.png");
-  arrow = new Button(width - 100, height - 100, 100, 50, "arrow.png");
-
-  home = new Button(100, 400, 350, 350, "menu/home.png");
-  sun = new Button(100, 100, 300, 300, "menu/sun.png");
-  mall = new Button(600, 300, 350, 350, "menu/themall.png");
-  phone = new Button(1150, 450, 250, 250, "menu/phonecool.png");
-
-  exitButton = new Button(20, 20, 100, 100, "bow.png");
 
   // making new swatches
   // when adding new swatch, make this first
@@ -226,7 +254,11 @@ function setup() {
   );
   var purple = new swatch(1270, 395, "nailgame/swatches/color12swatch.png");
   var lightBrown = new swatch(1060, 415, "nailgame/swatches/color13swatch.png");
-  var brightYellow = new swatch(1095,415, "nailgame/swatches/color14swatch.png");
+  var brightYellow = new swatch(
+    1095,
+    415,
+    "nailgame/swatches/color14swatch.png"
+  );
   var lightPink = new swatch(1113, 425, "nailgame/swatches/color15swatch.png");
   var red = new swatch(1150, 430, "nailgame/swatches/color16swatch.png");
   var yellow = new swatch(1180, 435, "nailgame/swatches/color17swatch.png");
@@ -265,33 +297,46 @@ function setup() {
 }
 
 function draw() {
-  // switch (screen) {
-  // case "home":
-  //   menuScreen();
-  //   break;
-  // case "dress up title":
-  //   startScreen();
-  //   break;
-  // case "instructions dress up":
-  //   instructionScreen();
-  //   break;
-  // case "dress up game":
-  //   dressUpScreen();
-  //   break;
-  // case "nail title":
-  //   startScreen();
-  //   break;
-  // case "nail instructions":
-  //   instructionScreen();
-  //   break;
-  // case "nail game":
-  //   nailGameScreen();
-  //   break;
-  // case "pet store":
-  //   petStoreScreen();
-  //   break;
-  // }
-  petStoreScreen();
+  switch (screen) {
+    case "home":
+      menuScreen();
+      break;
+    case "mall screen":
+      mallScreen();
+      break;
+    case "dress up title":
+      startScreen();
+      break;
+    case "instructions dress up":
+      instructionScreen();
+      break;
+    case "dress up game":
+      dressUpScreen();
+      break;
+    case "nail title":
+      nailTitleScreen();
+      break;
+    case "nail instructions":
+      instructionScreen();
+      break;
+    case "nail game":
+      nailGameScreen();
+      break;
+    case "pet store":
+      petStoreScreen();
+      break;
+    case "pet intro screen":
+      petIntroScreen();
+      break;
+    case "tattoo intro screen":
+      tattooIntroScreen();
+      break;
+    case "tattoo parlor screen":
+      tattooParlorScreen();
+      break;
+  }
+  // petStoreScreen();
+  // nailGameScreen();
   imageMode(CORNER);
   image(
     exitButton.fileName,
@@ -308,6 +353,16 @@ function menuScreen() {
   phone.show();
   sun.show();
   mall.show();
+  // avatarlizard.pet=new pet(200, 200, 200, 200, petFileNames[0]);
+  // avatarlizard.display(200, 200, 300, 300);
+}
+
+function mallScreen() {
+  image(mallbackground, 0, 0, width, height);
+  petstorebutton.show();
+  clothingstorebutton.show();
+  nailsalonbutton.show();
+  tattooparlorbutton.show();
 }
 
 function startScreen() {
@@ -364,7 +419,8 @@ function dressUpScreen() {
   // background panels and lizard:
   ///////////
   background(roombackground);
-  image(lizardDoll, 0, 150, 550, 550);
+  // image(lizardDoll, 0, 150, 550, 550);
+  avatarlizard.display(0, 150, 550, 550);
 
   ///////////
   // right panel images:
@@ -456,28 +512,204 @@ function nailGameScreen() {
   }
 }
 
+function petIntroScreen() {
+  background(255)
+  bow.show();
+}
+
+var ant1,
+  ant2,
+  ant3,
+  beetle1,
+  beetle2,
+  beetle3,
+  caterpillar1,
+  caterpillar2,
+  caterpillar3,
+  grasshopper1,
+  grasshopper2,
+  grasshopper3,
+  ladybug1,
+  ladybug2,
+  ladybug3,
+  worm1,
+  worm2,
+  worm3;
 function petStoreScreen() {
   background(petstore);
-  for(var i=0; i<pets.length; i++){
+  // this for loop handles the pets generated in the menu
+  for (var i = 0; i < pets.length; i++) {
     pets[i].show();
     if (pets[i].intersect() && mouseIsPressed) {
-      console.log("test");
-      if (petColors == undefined || petColors.length == 0) {
-        console.log(petFileNames[i*3]);
-        petColors.push(new pet(200, 200, 200, 200, petFileNames[i*3]));
-        petColors.push(new pet(200, 300, 200, 200, petFileNames[(i*3)+1]));
-        petColors.push(new pet(200, 400, 200, 200, petFileNames[(i*3)+2]));
+      if (i == 0) {
+        ant1 = new pet(400, 250, 200, 200, petFileNames[i * 3]);
+        ant2 = new pet(400, 350, 200, 200, petFileNames[i * 3 + 1]);
+        ant3 = new pet(400, 450, 200, 200, petFileNames[i * 3 + 2]);
+      } else if (i == 1) {
+        beetle1 = new pet(200, 200, 200, 200, petFileNames[i * 3]);
+        beetle2 = new pet(200, 300, 200, 200, petFileNames[i * 3 + 1]);
+        beetle3 = new pet(200, 400, 200, 200, petFileNames[i * 3 + 2]);
+      } else if (i == 2) {
+        caterpillar1 = new pet(200, 200, 200, 200, petFileNames[i * 3]);
+        caterpillar2 = new pet(200, 300, 200, 200, petFileNames[i * 3 + 1]);
+        caterpillar3 = new pet(200, 400, 200, 200, petFileNames[i * 3 + 2]);
+      } else if (i == 3) {
+        grasshopper1 = new pet(200, 200, 200, 200, petFileNames[i * 3]);
+        grasshopper2 = new pet(200, 300, 200, 200, petFileNames[i * 3 + 1]);
+        grasshopper3 = new pet(200, 400, 200, 200, petFileNames[i * 3 + 2]);
+      } else if (i == 4) {
+        ladybug1 = new pet(200, 200, 200, 200, petFileNames[i * 3]);
+        ladybug2 = new pet(200, 300, 200, 200, petFileNames[i * 3 + 1]);
+        ladybug3 = new pet(200, 400, 200, 200, petFileNames[i * 3 + 2]);
+      } else if (i == 5) {
+        worm1 = new pet(200, 200, 200, 200, petFileNames[i * 3]);
+        worm2 = new pet(200, 300, 200, 200, petFileNames[i * 3 + 1]);
+        worm3 = new pet(200, 400, 200, 200, petFileNames[i * 3 + 2]);
       }
-    } else if (mouseIsPressed) {
-      petColors.splice(0);
-    } 
+    }
   }
- 
-   if (petColors.length > 0) {
-    petColors[0].show();
-    petColors[1].show();
-    petColors[2].show();
+
+  if (ant1 != undefined || ant2 != undefined || ant3 != undefined) {
+    ant1.show();
+    ant2.show();
+    ant3.show();
+    if (ant1.intersect()) {
+      avatarlizard.pet = ant1;
+    }
+    if (ant2.intersect()) {
+      avatarlizard.pet = ant2;
+    }
+    if (ant3.intersect()) {
+      avatarlizard.pet = ant3;
+    }
   }
+  if (!pets[0].intersect() && mouseIsPressed) {
+    ant1 = undefined;
+    ant2 = undefined;
+    ant3 = undefined;
+  }
+
+  if (beetle1 != undefined || beetle2 != undefined || beetle3 != undefined) {
+    beetle1.show();
+    beetle2.show();
+    beetle3.show();
+    if (beetle1.intersect()) {
+      avatarlizard.pet = beetle1;
+    }
+    if (beetle2.intersect()) {
+      avatarlizard.pet = beetle2;
+    }
+    if (beetle3.intersect()) {
+      avatarlizard.pet = beetle3;
+    }
+  }
+
+  if (!pets[1].intersect() && mouseIsPressed) {
+    beetle1 = undefined;
+    beetle2 = undefined;
+    beetle3 = undefined;
+  
+  }
+  if (
+    caterpillar1 != undefined ||
+    caterpillar2 != undefined ||
+    caterpillar3 != undefined
+  ) {
+    caterpillar1.show();
+    caterpillar2.show();
+    caterpillar3.show();
+    if (caterpillar1.intersect()) {
+      avatarlizard.pet = caterpillar1;
+    }
+    if (caterpillar2.intersect()) {
+      avatarlizard.pet = caterpillar2;
+    }
+    if (caterpillar3.intersect()) {
+      avatarlizard.pet = caterpillar3;
+    }
+  }
+  if (!pets[2].intersect() && mouseIsPressed) {
+    caterpillar1 = undefined;
+    caterpillar2 = undefined;
+    caterpillar3 = undefined;
+    
+  }
+  if (
+    grasshopper1 != undefined ||
+    grasshopper2 != undefined ||
+    grasshopper3 != undefined
+  ) {
+    grasshopper1.show();
+    grasshopper2.show();
+    grasshopper3.show();
+    if (grasshopper1.intersect()) {
+      avatarlizard.pet = grasshopper1;
+    }
+    if (grasshopper2.intersect()) {
+      avatarlizard.pet = grasshopper2;
+    }
+    if (grasshopper3.intersect()) {
+      avatarlizard.pet = grasshopper3;
+    }
+  }
+  if (!pets[3].intersect() && mouseIsPressed) {
+    grasshopper1 = undefined;
+    grasshopper2 = undefined;
+    grasshopper3 = undefined;
+    
+  }
+  if (ladybug1 != undefined || ladybug2 != undefined || ladybug3 != undefined) {
+    ladybug1.show();
+    ladybug2.show();
+    ladybug3.show();
+
+    if (ladybug1.intersect()) {
+      avatarlizard.pet = ladybug1;
+    }
+    if (ladybug2.intersect()) {
+      avatarlizard.pet = ladybug2;
+    }
+    if (ladybug3.intersect()) {
+      avatarlizard.pet = ladybug3;
+    }
+  }
+  if (!pets[4].intersect() && mouseIsPressed) {
+    ladybug1 = undefined;
+    ladybug2 = undefined;
+    ladybug3 = undefined;
+   
+  }
+  if (worm1 != undefined || worm2 != undefined || worm3 != undefined) {
+    worm1.show();
+    worm2.show();
+    worm3.show();
+
+    if (worm1.intersect()) {
+      avatarlizard.pet = worm1;
+    }
+    if (worm2.intersect()) {
+      avatarlizard.pet = worm2;
+    }
+    if (worm3.intersect()) {
+      avatarlizard.pet = worm3;
+    }
+  }
+  if (!pets[5].intersect() && mouseIsPressed) {
+    worm1 = undefined;
+    worm2 = undefined;
+    worm3 = undefined;
+  }
+  avatarlizard.display(200, 400, 400, 400);
+  // }
+}
+
+function tattooIntroScreen(){
+background(255);
+bow.show();
+}
+
+function tattooParlorScreen(){
+background(255);
 }
 
 function mousePressed() {
@@ -487,10 +719,11 @@ function mousePressed() {
       screen = "dress up title";
     }
     if (mall.intersect()) {
-      screen = "nail title";
+      screen = "mall screen";
     }
   } else if (screen == "dress up title") {
     if (bow.intersect()) {
+
       screen = "instructions dress up";
     }
   } else if (screen == "instructions dress up") {
@@ -504,6 +737,27 @@ function mousePressed() {
   } else if (screen == "nail title") {
     if (bow.intersect()) {
       screen = "nail instructions";
+    }
+  } else if (screen == "mall screen") {
+    if (nailsalonbutton.intersect()) {
+      screen = "nail title";
+    }
+    if (clothingstorebutton.intersect()) {
+      screen = "nail title";
+    }
+    if (petstorebutton.intersect()) {
+      screen = "pet intro screen";
+    }
+    if(tattooparlorbutton.intersect()){
+      screen = "tattoo intro screen"
+    }
+  } else if (screen == "pet intro screen") {
+    if (bow.intersect()) {
+      screen = "pet store";
+    }  
+  } else if(screen == "tattoo intro screen") {
+    if(bow.intersect()){
+      screen = "tattoo parlor screen"
     }
   }
   if (exitButton.intersect()) {
@@ -538,7 +792,6 @@ function mousePressed() {
   for (var i = 0; i < swatches.length; i++) {
     if (swatches[i].intersect()) {
       swatches[i].active = true;
-      console.log("test");
     }
   }
 }
@@ -596,18 +849,4 @@ function mouseReleased() {
   }
 }
 
-function rotateIcon(x, y, size, img) {
-  /////////
-  // rotating item of clothing as we hover:
-  /////////
-  push();
-  imageMode(CENTER);
-  translate(x + size / 2, y + size / 2);
-  if (currentAngle > rMax || currentAngle < rMin) {
-    rSpeed *= -1; //changing direction of rotation
-  }
-  rotate(currentAngle);
-  image(img, 0, 0, size, size);
-  currentAngle += rSpeed;
-  pop();
-}
+
