@@ -1,10 +1,20 @@
 class avatar{
     constructor(img){
-        this.clothesArray=[];
+        this.clothes={
+            //key:value
+            top:undefined,
+            bottom: undefined,
+            shoes: undefined,
+            jacket: undefined,
+            dress: undefined,
+
+        };
         this.pet=undefined;
         this.image=img;
         this.tattoos=[];
     }
+    // TODO : add clothing rendering here
+
     display(x,y,width,height){
         image(this.image, x, y, width, height);
         if(this.pet!=undefined){

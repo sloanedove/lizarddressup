@@ -50,7 +50,12 @@ var phone;
 // every time add new background image, add here
 var menubackground, mallbackground, roombackground;
 // mall button variables
-var nailsalonbutton, clothingstorebutton, petstorebutton, tattooparlorbutton;
+var nailsalonbutton,
+  clothingstorebutton,
+  petstorebutton,
+  tattooparlorbutton,
+  arcadebutton,
+  pretzelbutton;
 
 var exitButton;
 
@@ -75,15 +80,20 @@ var petstore;
 
 var avatarlizard;
 
+var hearts;
+
 function preload() {
   nailFilePath = "nailgame/nailcolors/nail";
   petstore = loadImage("backgrounds/petstore.png");
   lizardDoll = loadImage("lizarddoll.png");
 
+  hearts = loadImage("buttons/hearts.png");
+
   // loading images for background variables
   roombackground = loadImage("backgrounds/roombackground.png");
   menubackground = loadImage("menu/background.png");
-  mallbackground = loadImage("backgrounds/mallstores.png");
+  //to do: replace mall background image
+  // mallbackground = loadImage("backgrounds/mallstores.png");
 
   lizardhand = loadImage("nailgame/lizardhand.png");
   colorchart = loadImage("nailgame/colorchart.png");
@@ -134,13 +144,13 @@ function preload() {
   //   }
   // }
 
-  // add all pets here 
+  // add all pets here
   pets.push(new pet(400, 250, 200, 200, petFileNames[1]));
   pets.push(new pet(800, 250, 200, 200, petFileNames[4]));
   pets.push(new pet(1200, 240, 200, 200, petFileNames[7]));
   pets.push(new pet(450, 500, 200, 200, petFileNames[9]));
   pets.push(new pet(800, 450, 200, 200, petFileNames[13]));
-  pets.push(new pet(1200, 470, 200, 200, petFileNames[15]))
+  pets.push(new pet(1200, 470, 200, 200, petFileNames[15]));
 
   // this is all of the buttons
   bow = new Button(1772 / 2 - 50, 900 - 250, 100, 100, "buttons/bow.png");
@@ -151,11 +161,50 @@ function preload() {
   mall = new Button(600, 300, 350, 350, "menu/themall.png");
   phone = new Button(1150, 450, 250, 250, "menu/phonecool.png");
 
-  nailsalonbutton = new Button(0, 0, 300, 300, "buttons/nailsalon.png");
-  clothingstorebutton = new Button(200, 0, 300, 300, "buttons/clothingstore.png");
-  petstorebutton = new Button(0, 300, 300, 300, "buttons/petstorefront.png");
-  tattooparlorbutton = new Button(1772-500, 0, 500, 500, "buttons/tattooparlor.png");
-
+  var storefrontbuttonsize = 490;
+  var storefrontoffset = 250;
+  nailsalonbutton = new Button(
+    0 + storefrontoffset,
+    0,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    "storefronts/nailsalon.png"
+  );
+  clothingstorebutton = new Button(
+    storefrontbuttonsize + storefrontoffset,
+    0,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    "storefronts/clothingstore.png"
+  );
+  petstorebutton = new Button(
+    0 + storefrontoffset,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    "storefronts/bugstore.png"
+  );
+  tattooparlorbutton = new Button(
+    storefrontbuttonsize * 2 + storefrontoffset,
+    0,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    "storefronts/tattooparlor.png"
+  );
+  arcadebutton = new Button(
+    storefrontbuttonsize + storefrontoffset,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    "storefronts/arcade.png"
+  );
+  pretzelbutton = new Button(
+    storefrontbuttonsize * 2 + storefrontoffset,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    storefrontbuttonsize,
+    "storefronts/pretzelstore.png"
+  );
 
   exitButton = new Button(20, 20, 100, 100, "buttons/bow.png");
 }
@@ -166,7 +215,8 @@ function setup() {
   avatarlizard = new avatar(lizardDoll);
   saveImage = createGraphics(400, 670);
 
-  var dress3 = new Clothing(1160, 80, 300, 300, "clothing/dresses/dress3.png");
+  //dresses
+  var dress3 = new Clothing(1160, 80, 250, 250, "clothing/dresses/dress3.png");
   var dressOne = new Clothing(
     1330,
     80,
@@ -181,7 +231,7 @@ function setup() {
     235,
     "clothing/dresses/dress2.png"
   );
-
+  //bottoms
   var bottomOne = new Clothing(
     510,
     340,
@@ -196,22 +246,16 @@ function setup() {
     240,
     "clothing/bottoms/bottom2.png"
   );
-
+  //tops
   var topOne = new Clothing(480, 70, 160, 160, "clothing/tops/top1.png");
   var topTwo = new Clothing(640, 70, 100, 100, "clothing/tops/top2.png");
   var topThree = new Clothing(700, 70, 140, 140, "clothing/tops/top3.png");
   var topFour = new Clothing(830, 70, 120, 120, "clothing/tops/top4.png");
   var topFive = new Clothing(940, 70, 140, 140, "clothing/tops/top5.png");
-
+  //shoes
   var shoeOne = new Clothing(1300, 500, 180, 180, "clothing/shoes/shoe1.png");
-
-  // var accessory1 = new Clothing(
-  //   500,
-  //   500,
-  //   180,
-  //   180,
-  //   "accessories/accesory1.png"
-  // );
+  //accessories
+  // var accessory1 = new Clothing(500,500,180,180,"accessories/accesory1.png");
 
   clothing.push(0);
   clothing[0] = [];
@@ -313,9 +357,7 @@ function draw() {
     case "dress up game":
       dressUpScreen();
       break;
-    case "nail title":
-      nailTitleScreen();
-      break;
+
     case "nail instructions":
       instructionScreen();
       break;
@@ -358,11 +400,13 @@ function menuScreen() {
 }
 
 function mallScreen() {
-  image(mallbackground, 0, 0, width, height);
+  // image(mallbackground, 0, 0, width, height);
   petstorebutton.show();
   clothingstorebutton.show();
   nailsalonbutton.show();
   tattooparlorbutton.show();
+  arcadebutton.show();
+  pretzelbutton.show();
 }
 
 function startScreen() {
@@ -481,6 +525,7 @@ function dressUpScreen() {
   for (var j = 0; j < clothing.length; j++) {
     for (var i = 0; i < clothing[j].length; i++) {
       if (clothing[j][i].placed) {
+        // console.log(clothing[j][i].placed);
         image(
           clothing[j][i].fileName,
           clothing[j][i].x,
@@ -513,7 +558,7 @@ function nailGameScreen() {
 }
 
 function petIntroScreen() {
-  background(255)
+  background(255);
   bow.show();
 }
 
@@ -546,9 +591,9 @@ function petStoreScreen() {
         ant2 = new pet(400, 350, 200, 200, petFileNames[i * 3 + 1]);
         ant3 = new pet(400, 450, 200, 200, petFileNames[i * 3 + 2]);
       } else if (i == 1) {
-        beetle1 = new pet(200, 200, 200, 200, petFileNames[i * 3]);
-        beetle2 = new pet(200, 300, 200, 200, petFileNames[i * 3 + 1]);
-        beetle3 = new pet(200, 400, 200, 200, petFileNames[i * 3 + 2]);
+        beetle1 = new pet(750, 250, 200, 200, petFileNames[i * 3]);
+        beetle2 = new pet(750, 300, 200, 200, petFileNames[i * 3 + 1]);
+        beetle3 = new pet(750, 400, 200, 200, petFileNames[i * 3 + 2]);
       } else if (i == 2) {
         caterpillar1 = new pet(200, 200, 200, 200, petFileNames[i * 3]);
         caterpillar2 = new pet(200, 300, 200, 200, petFileNames[i * 3 + 1]);
@@ -608,7 +653,6 @@ function petStoreScreen() {
     beetle1 = undefined;
     beetle2 = undefined;
     beetle3 = undefined;
-  
   }
   if (
     caterpillar1 != undefined ||
@@ -632,7 +676,6 @@ function petStoreScreen() {
     caterpillar1 = undefined;
     caterpillar2 = undefined;
     caterpillar3 = undefined;
-    
   }
   if (
     grasshopper1 != undefined ||
@@ -656,7 +699,6 @@ function petStoreScreen() {
     grasshopper1 = undefined;
     grasshopper2 = undefined;
     grasshopper3 = undefined;
-    
   }
   if (ladybug1 != undefined || ladybug2 != undefined || ladybug3 != undefined) {
     ladybug1.show();
@@ -677,7 +719,6 @@ function petStoreScreen() {
     ladybug1 = undefined;
     ladybug2 = undefined;
     ladybug3 = undefined;
-   
   }
   if (worm1 != undefined || worm2 != undefined || worm3 != undefined) {
     worm1.show();
@@ -699,17 +740,17 @@ function petStoreScreen() {
     worm2 = undefined;
     worm3 = undefined;
   }
-  avatarlizard.display(200, 400, 400, 400);
+  avatarlizard.display(0, 275, 600, 600);
   // }
 }
 
-function tattooIntroScreen(){
-background(255);
-bow.show();
+function tattooIntroScreen() {
+  background(255);
+  bow.show();
 }
 
-function tattooParlorScreen(){
-background(255);
+function tattooParlorScreen() {
+  background(255);
 }
 
 function mousePressed() {
@@ -723,7 +764,6 @@ function mousePressed() {
     }
   } else if (screen == "dress up title") {
     if (bow.intersect()) {
-
       screen = "instructions dress up";
     }
   } else if (screen == "instructions dress up") {
@@ -734,13 +774,9 @@ function mousePressed() {
     if (bow.intersect()) {
       screen = "nail game";
     }
-  } else if (screen == "nail title") {
-    if (bow.intersect()) {
-      screen = "nail instructions";
-    }
   } else if (screen == "mall screen") {
     if (nailsalonbutton.intersect()) {
-      screen = "nail title";
+      screen = "nail instructions";
     }
     if (clothingstorebutton.intersect()) {
       screen = "nail title";
@@ -748,16 +784,22 @@ function mousePressed() {
     if (petstorebutton.intersect()) {
       screen = "pet intro screen";
     }
-    if(tattooparlorbutton.intersect()){
-      screen = "tattoo intro screen"
+    if (tattooparlorbutton.intersect()) {
+      screen = "tattoo intro screen";
+    }
+    if (arcadebutton.intersect()) {
+      screen = "arcade intro screen";
+    }
+    if (pretzelbutton.intersect()) {
+      screen = "pretzel intro screen";
     }
   } else if (screen == "pet intro screen") {
     if (bow.intersect()) {
       screen = "pet store";
-    }  
-  } else if(screen == "tattoo intro screen") {
-    if(bow.intersect()){
-      screen = "tattoo parlor screen"
+    }
+  } else if (screen == "tattoo intro screen") {
+    if (bow.intersect()) {
+      screen = "tattoo parlor screen";
     }
   }
   if (exitButton.intersect()) {
@@ -810,17 +852,61 @@ function mouseClicked() {
     }
   }
 }
+function addClothes(clothingItem, type, typestring){
+  if (clothingItem.file.includes(typestring)&& type == undefined) {
+    return clothingItem.file;
+  } else if (clothingItem.file.includes(typestring)&& type) {
+    for (var j = 0; j < clothing[closetPage].length; j++) {
+      if (type == clothing[closetPage][j].file) {
+        clothing[closetPage][j].placed=false;
+        clothing[closetPage][j].x = clothing[closetPage][j].originalX;
+        clothing[closetPage][j].y = clothing[closetPage][j].originalY;
+        console.log(clothingItem.file);
+      }
+    }
+  return clothingItem.file;
+  } 
+}
 
 function mouseReleased() {
   //shows clothing on doll when mouse released
   if (screen == "dress up game") {
     for (var i = 0; i < clothing[closetPage].length; i++) {
-      if (clothing[closetPage][i].active) {
-        clothing[closetPage][i].x = mouseX - clothing[closetPage][i].width / 2;
-        clothing[closetPage][i].y = mouseY - clothing[closetPage][i].height / 2;
-        clothing[closetPage][i].active = false;
-        clothing[closetPage][i].placed = true;
+      const clothingItem = clothing[closetPage][i];
+      //moves the piece of clothing when its held by mouse
+      if (clothingItem.active) {
+        clothingItem.x = mouseX - clothingItem.width / 2;
+        clothingItem.y = mouseY - clothingItem.height / 2;
+        clothingItem.active = false;
+        //checks if clothing item is on lizard
+        if (mouseX <= 450) {
+          clothingItem.placed = true;
+          if(clothingItem.file.includes("bottom")){
+          avatarlizard.clothes.bottom = addClothes(clothingItem, avatarlizard.clothes.bottom, "bottom");
+          }else if(clothingItem.file.includes("top")){
+              avatarlizard.clothes.top = addClothes(clothingItem, avatarlizard.clothes.top, "top");
+          }else if(clothingItem.file.includes("jacket")){
+            avatarlizard.clothes.jacket = addClothes(clothingItem, avatarlizard.clothes.jacket, "jacket");
+        }else if(clothingItem.file.includes("shoes")){
+          avatarlizard.clothes.shoes = addClothes(clothingItem, avatarlizard.clothes.shoes, "shoes");
       }
+
+        } else {
+          clothingItem.placed = false;
+        }
+      }
+      //snaps clothing back to original spot when its placed in closet area
+      if (
+        !clothingItem.placed &&
+        clothingItem.x != clothingItem.originalX &&
+        clothingItem.y != clothingItem.originalY &&
+        mouseX>450
+      ) {
+        clothingItem.x = clothingItem.originalX;
+        clothingItem.y = clothingItem.originalY;
+        
+      }
+     
     }
   }
   for (var i = 0; i < swatches.length; i++) {
@@ -849,4 +935,37 @@ function mouseReleased() {
   }
 }
 
+// function releaseHearts(){
+//   for(let i=0; i<20; i++){
+//     let heart= document.createElement("img");
+//     heart.src="images/hearts.png";
+//     heart.setAttribute("class", "heart")
+//     heart.style.position="fixed";
+//     heart.style.bottom="0px";
+//     heart.width=randomIntFromInterval(50, window.innerWidth/3);
+//     heart.style.left=randomIntFromInterval(5, window.innerWidth)+"px";
+//     heart.speed=randomIntFromInterval(4,10);
+//     heart.style.height="auto";
+//  //    heart.height=65;
+//     console.log(heart);
+//     document.body.appendChild(heart);
+//  }
+//   setInterval(updateHearts, 16)
 
+//  }
+
+//  function updateHearts(){
+//     for(let i=0;i<20;i++){
+
+//      let hearts=document.body.getElementsByClassName("heart");
+//      // let floatingHearts= document.getElementById("heart");
+//      let heartPosition= hearts[i].style.bottom;
+//      heartPosition=parseInt(heartPosition.substring(0, heartPosition.length-2));
+//      heartPosition += hearts[i].speed;
+//      hearts[i].style.bottom=heartPosition+"px"
+//  }
+//  }
+
+//  function randomIntFromInterval(min, max) { // min and max included
+//      return Math.floor(Math.random() * (max - min + 1) + min)
+//    }

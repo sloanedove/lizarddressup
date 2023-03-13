@@ -20,6 +20,10 @@ class Clothing {
     this.rSpeed = 1; //how fast its rotating
     this.active = false; //if the item is being dragged
     this.placed = false; //if the item is placed
+    this.originalX = x; //keeps track of original starting location of clothing item
+    this.originalY = y; //keeps track of original starting location of clothing item
+    this.file = fileName;
+    
   }
 
   /**
@@ -46,6 +50,7 @@ class Clothing {
     imageMode(CENTER);
     if (this.active) {
       image(this.fileName, mouseX, mouseY, this.width, this.height);
+      // console.log(this.fileName);
     }
   }
 
