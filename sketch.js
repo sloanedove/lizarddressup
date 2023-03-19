@@ -522,20 +522,20 @@ function dressUpScreen() {
   noStroke();
   fill(0);
   text("save image", 150, height - 100);
-  for (var j = 0; j < clothing.length; j++) {
-    for (var i = 0; i < clothing[j].length; i++) {
-      if (clothing[j][i].placed) {
-        // console.log(clothing[j][i].placed);
-        image(
-          clothing[j][i].fileName,
-          clothing[j][i].x,
-          clothing[j][i].y,
-          clothing[j][i].width,
-          clothing[j][i].height
-        );
-      }
-    }
-  }
+  // for (var j = 0; j < clothing.length; j++) {
+  //   for (var i = 0; i < clothing[j].length; i++) {
+  //     if (clothing[j][i].placed) {
+  //       // console.log(clothing[j][i].placed);
+  //       image(
+  //         clothing[j][i].fileName,
+  //         clothing[j][i].x,
+  //         clothing[j][i].y,
+  //         clothing[j][i].width,
+  //         clothing[j][i].height
+  //       );
+  //     }
+  //   }
+  // }
   image(arrow.fileName, arrow.x, arrow.y, arrow.width, arrow.height);
 }
 
@@ -852,21 +852,53 @@ function mouseClicked() {
     }
   }
 }
-function addClothes(clothingItem, type, typestring){
-  if (clothingItem.file.includes(typestring)&& type == undefined) {
+
+function checkDress() {
+  if (dressOn) {
+    if (
+      avatarlizard.clothes.top.file != undefined ||
+      avatarlizard.clothes.bottom.file != undefined) {
+      console.log("adding dress");
+      for (var j = 0; j < clothing[closetPage].length; j++) {
+        if (avatarlizard.clothes.top.file == clothing[closetPage][j].file || avatarlizard.clothes.bottom.file == clothing[closetPage][j].file ) {
+          clothing[closetPage][j].placed = false;
+          clothing[closetPage][j].x = clothing[closetPage][j].originalX;
+          clothing[closetPage][j].y = clothing[closetPage][j].originalY;
+        }
+      }
+      avatarlizard.clothes.top.file=undefined;
+      avatarlizard.clothes.bottom.file=undefined;
+    }
+  }else{
+    if(avatarlizard.clothes.dress.file != undefined){
+      console.log("removing dress");
+      for (var j = 0; j < clothing[closetPage].length; j++) {
+        if (avatarlizard.clothes.dress.file == clothing[closetPage][j].file) {
+          clothing[closetPage][j].placed = false;
+          clothing[closetPage][j].x = clothing[closetPage][j].originalX;
+          clothing[closetPage][j].y = clothing[closetPage][j].originalY;
+        }
+      }
+      avatarlizard.clothes.dress.file=undefined;
+    }
+  }
+}
+
+function addClothes(clothingItem, type, typestring) {
+  if (clothingItem.file.includes(typestring) && type == undefined) {  
     return clothingItem.file;
-  } else if (clothingItem.file.includes(typestring)&& type) {
+  } else if (clothingItem.file.includes(typestring) && type) {
     for (var j = 0; j < clothing[closetPage].length; j++) {
       if (type == clothing[closetPage][j].file) {
-        clothing[closetPage][j].placed=false;
+        clothing[closetPage][j].placed = false;
         clothing[closetPage][j].x = clothing[closetPage][j].originalX;
         clothing[closetPage][j].y = clothing[closetPage][j].originalY;
-        console.log(clothingItem.file);
       }
     }
-  return clothingItem.file;
-  } 
+    return clothingItem.file;
+  }
 }
+var dressOn = false;
 
 function mouseReleased() {
   //shows clothing on doll when mouse released
@@ -881,16 +913,73 @@ function mouseReleased() {
         //checks if clothing item is on lizard
         if (mouseX <= 450) {
           clothingItem.placed = true;
-          if(clothingItem.file.includes("bottom")){
-          avatarlizard.clothes.bottom = addClothes(clothingItem, avatarlizard.clothes.bottom, "bottom");
-          }else if(clothingItem.file.includes("top")){
-              avatarlizard.clothes.top = addClothes(clothingItem, avatarlizard.clothes.top, "top");
-          }else if(clothingItem.file.includes("jacket")){
-            avatarlizard.clothes.jacket = addClothes(clothingItem, avatarlizard.clothes.jacket, "jacket");
-        }else if(clothingItem.file.includes("shoes")){
-          avatarlizard.clothes.shoes = addClothes(clothingItem, avatarlizard.clothes.shoes, "shoes");
-      }
+          //TODO : saving x and y locations to clothingLocation object on lizard
+          
 
+          if (clothingItem.file.includes("dress")) {
+            dressOn = true;
+            avatarlizard.clothes.dress.file = addClothes(
+              clothingItem,
+              avatarlizard.clothes.dress.file,
+              "dress"
+            )
+            checkDress();
+            avatarlizard.clothes.dress.x=clothingItem.x;
+            avatarlizard.clothes.dress.y=clothingItem.y;
+            avatarlizard.clothes.dress.width = clothingItem.width;
+            avatarlizard.clothes.dress.height = clothingItem.height;
+            avatarlizard.clothes.dress.loadedImage = clothingItem.fileName;
+          }
+          if (clothingItem.file.includes("bottom")) {
+            dressOn=false;
+            avatarlizard.clothes.bottom.file = addClothes(
+              clothingItem,
+              avatarlizard.clothes.bottom.file,
+              "bottom"
+            );
+            checkDress();
+            avatarlizard.clothes.bottom.x=clothingItem.x;
+              avatarlizard.clothes.bottom.y=clothingItem.y;
+              avatarlizard.clothes.bottom.width = clothingItem.width;
+              avatarlizard.clothes.bottom.height = clothingItem.height;
+              avatarlizard.clothes.bottom.loadedImage = clothingItem.fileName;
+          } else if (clothingItem.file.includes("top")) {
+            dressOn=false;
+            avatarlizard.clothes.top.file = addClothes(
+              clothingItem,
+              avatarlizard.clothes.top.file,
+              "top"
+            );
+              checkDress();
+              avatarlizard.clothes.top.x=clothingItem.x;
+              avatarlizard.clothes.top.y=clothingItem.y;
+              avatarlizard.clothes.top.width = clothingItem.width;
+              avatarlizard.clothes.top.height = clothingItem.height;
+              avatarlizard.clothes.top.loadedImage = clothingItem.fileName;
+
+          } else if (clothingItem.file.includes("jacket")) {
+            avatarlizard.clothes.jacket.file = addClothes(
+              clothingItem,
+              avatarlizard.clothes.jacket.file,
+              "jacket"
+            );
+            avatarlizard.clothes.jacket.x=clothingItem.x;
+            avatarlizard.clothes.jacket.y=clothingItem.y;
+            avatarlizard.clothes.jacket.width = clothingItem.width;
+            avatarlizard.clothes.jacket.height = clothingItem.height;
+            avatarlizard.clothes.jacket.loadedImage = clothingItem.fileName;
+          } else if (clothingItem.file.includes("shoes")) {
+            avatarlizard.clothes.shoes.file = addClothes(
+              clothingItem,
+              avatarlizard.clothes.shoes.file,
+              "shoes"
+            );
+            avatarlizard.clothes.shoes.x=clothingItem.x;
+            avatarlizard.clothes.shoes.y=clothingItem.y;
+            avatarlizard.clothes.shoes.width = clothingItem.width;
+            avatarlizard.clothes.shoes.height = clothingItem.height;
+            avatarlizard.clothes.shoes.loadedImage = clothingItem.fileName;
+          }
         } else {
           clothingItem.placed = false;
         }
@@ -900,13 +989,11 @@ function mouseReleased() {
         !clothingItem.placed &&
         clothingItem.x != clothingItem.originalX &&
         clothingItem.y != clothingItem.originalY &&
-        mouseX>450
+        mouseX > 450
       ) {
         clothingItem.x = clothingItem.originalX;
         clothingItem.y = clothingItem.originalY;
-        
       }
-     
     }
   }
   for (var i = 0; i < swatches.length; i++) {
