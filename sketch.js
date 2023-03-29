@@ -85,7 +85,8 @@ var hearts;
 function preload() {
   nailFilePath = "nailgame/nailcolors/nail";
   petstore = loadImage("backgrounds/petstore.png");
-  lizardDoll = loadImage("lizarddoll.png");
+  // lizardDoll = loadImage("lizarddoll.png");
+  lizardDoll = loadImage("lizarddolltrimmed.png");
 
   hearts = loadImage("buttons/hearts.png");
 
@@ -178,33 +179,33 @@ function preload() {
     "storefronts/clothingstore.png"
   );
   petstorebutton = new Button(
-    0 + storefrontoffset,
-    storefrontbuttonsize,
-    storefrontbuttonsize,
-    storefrontbuttonsize,
-    "storefronts/bugstore.png"
-  );
-  tattooparlorbutton = new Button(
     storefrontbuttonsize * 2 + storefrontoffset,
     0,
     storefrontbuttonsize,
     storefrontbuttonsize,
-    "storefronts/tattooparlor.png"
+    "storefronts/bugstore.png"
   );
-  arcadebutton = new Button(
-    storefrontbuttonsize + storefrontoffset,
-    storefrontbuttonsize,
-    storefrontbuttonsize,
-    storefrontbuttonsize,
-    "storefronts/arcade.png"
-  );
-  pretzelbutton = new Button(
-    storefrontbuttonsize * 2 + storefrontoffset,
-    storefrontbuttonsize,
-    storefrontbuttonsize,
-    storefrontbuttonsize,
-    "storefronts/pretzelstore.png"
-  );
+  // tattooparlorbutton = new Button(
+  //   storefrontbuttonsize * 2 + storefrontoffset,
+  //   0,
+  //   storefrontbuttonsize,
+  //   storefrontbuttonsize,
+  //   "storefronts/tattooparlor.png"
+  // );
+  // arcadebutton = new Button(
+  //   storefrontbuttonsize + storefrontoffset,
+  //   storefrontbuttonsize,
+  //   storefrontbuttonsize,
+  //   storefrontbuttonsize,
+  //   "storefronts/arcade.png"
+  // );
+  // pretzelbutton = new Button(
+  //   storefrontbuttonsize * 2 + storefrontoffset,
+  //   storefrontbuttonsize,
+  //   storefrontbuttonsize,
+  //   storefrontbuttonsize,
+  //   "storefronts/pretzelstore.png"
+  // );
 
   exitButton = new Button(20, 20, 100, 100, "buttons/bow.png");
 }
@@ -214,21 +215,21 @@ function setup() {
   angleMode(DEGREES);
   avatarlizard = new avatar(lizardDoll);
   saveImage = createGraphics(400, 670);
-
+//keep track of image sizes 
   //dresses
-  var dress3 = new Clothing(1160, 80, 250, 250, "clothing/dresses/dress3.png");
+  var dress3 = new Clothing(1160, 80, 320, 320, "clothing/dresses/dress3.png");
   var dressOne = new Clothing(
     1330,
     80,
-    250,
-    250,
+    230,
+    230,
     "clothing/dresses/dress1.png"
   );
   var dressTwo = new Clothing(
     1480,
     80,
-    235,
-    235,
+    315,
+    315,
     "clothing/dresses/dress2.png"
   );
   //bottoms
@@ -247,10 +248,10 @@ function setup() {
     "clothing/bottoms/bottom2.png"
   );
   //tops
-  var topOne = new Clothing(480, 70, 160, 160, "clothing/tops/top1.png");
-  var topTwo = new Clothing(640, 70, 100, 100, "clothing/tops/top2.png");
-  var topThree = new Clothing(700, 70, 140, 140, "clothing/tops/top3.png");
-  var topFour = new Clothing(830, 70, 120, 120, "clothing/tops/top4.png");
+  var topOne = new Clothing(500, 70, 130, 130, "clothing/tops/top1.png");
+  var topTwo = new Clothing(610, 70, 145, 145, "clothing/tops/top2.png");
+  var topThree = new Clothing(745, 80, 100, 100, "clothing/tops/top3.png");
+  var topFour = new Clothing(820, 70, 140, 140, "clothing/tops/top4.png");
   var topFive = new Clothing(940, 70, 140, 140, "clothing/tops/top5.png");
   //shoes
   var shoeOne = new Clothing(1300, 500, 180, 180, "clothing/shoes/shoe1.png");
@@ -464,7 +465,7 @@ function dressUpScreen() {
   ///////////
   background(roombackground);
   // image(lizardDoll, 0, 150, 550, 550);
-  avatarlizard.display(0, 150, 550, 550);
+  avatarlizard.display(75, 150, 2.75);
 
   ///////////
   // right panel images:
@@ -740,7 +741,7 @@ function petStoreScreen() {
     worm2 = undefined;
     worm3 = undefined;
   }
-  avatarlizard.display(0, 275, 600, 600);
+  avatarlizard.display(150, 275, 2.75);
   // }
 }
 

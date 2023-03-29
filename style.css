@@ -1,0 +1,56 @@
+html,body{
+    margin:0;
+    padding:0;
+    /* background-image: url("menu/background.png");
+    object-fit: cover; */
+    width:100%;
+    height:100%;
+    overflow: clip;
+}
+#backgroundimage{
+    width: 100%;
+    height: 100%;
+}
+#backgroundimage img{
+    width:100%;
+    object-fit: contain;
+}
+/* all buttons */
+.menu-btn{
+background: none;
+border: none;
+position: absolute;
+cursor: pointer;
+}
+
+.menu-btn img{
+    width: 100%;
+}
+
+.bow{
+width:100px;
+top:10px;
+left:10px;
+}
+
+#phone{
+    width: 200px;
+    top: 50%;
+    left: 65%;
+}
+
+#home{
+    width: 350px;
+    top: 50%;
+    left: 20%;
+}
+
+/* all scene containers */
+#phonescene, #homescene{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display: none;
+}

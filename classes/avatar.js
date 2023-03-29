@@ -9,15 +9,20 @@ class avatar{
             dress: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
 
         };
+        this.width=860;
+        this.height=1500;
         this.pet=undefined;
         this.image=img;
         this.tattoos=[];
       
     }
-    // TODO : update clothing location per screen based on lizard location
 
-    display(x,y,width,height){
-        image(this.image, x, y, width, height);
+    display(x,y,scale){
+        push();
+        translate(x,y);
+        var scaledWidth=this.width/scale;
+        var scaledHeight=this.height/scale;
+        image(this.image, 0, 0, scaledWidth, scaledHeight);
         if(this.pet!=undefined){
             //position of pet
             image(this.pet.fileName, x+width/2, y+height, 100, 100)
@@ -27,19 +32,35 @@ class avatar{
                 image(this.tattoos[i],x,y,width,height);
             }
         }
+        //TODO : adjust clothing size based on scale
         Object.entries(this.clothes).forEach((clothingItem)=>{
             const [itemType, object] = clothingItem;
             // let file = clothingItem[1];
             
             if(object.file!=undefined){
-                image(object.loadedImage,object.x,object.y, object.width, object.height);
-                console.log(clothingItem);
+                // image(object.loadedImage,object.x,object.y, object.width, object.height);
                 push();
-                fill(color(255,0,0));
-                ellipse(object.x, object.y,50)
+                var clothingX=0;
+                var clothingY=0;
+                if(itemType=="top" || itemType=="jacket"){
+                    clothingX=scaledWidth/2.25 + 5;
+                    clothingY=scaledHeight/2.25 + 6; 
+                }else if(itemType=="bottom"){
+                    clothingX=scaledWidth/2.25 - 30;
+                    clothingY=scaledHeight/4*3;
+                }else if(itemType=="dress"){
+                    clothingX=scaledWidth/2 - 25;
+                    clothingY=scaledHeight/2+ 50;
+                }else if(itemType=="shoes"){
+                    clothingX=scaledWidth/2-70;
+                    clothingY=scaledHeight-60; 
+                }
+                imageMode(CENTER);
+                image(object.loadedImage,clothingX,clothingY, object.width, object.height);
                 pop();
+                
             }
         })
-        
+        pop();   
     }
 }
