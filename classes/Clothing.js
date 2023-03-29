@@ -7,10 +7,12 @@ class Clothing {
  * @param {number} h - height
  * @param {number} fileName - location of image i want to use
  */
-  constructor(x, y, w, h, fileName) {
+  constructor(sketch, x, y, w, h,scale, fileName) {
+    this.sketch=sketch;
+    this.scale=scale;
     this.x = x;
     this.y = y;
-    this.fileName = loadImage(fileName);
+    this.fileName = this.sketch.loadImage(fileName);
     this.width = w;
     this.height = h;
     this.size = 250; //size of item
@@ -23,7 +25,8 @@ class Clothing {
     this.originalX = x; //keeps track of original starting location of clothing item
     this.originalY = y; //keeps track of original starting location of clothing item
     this.file = fileName;
-    
+    this.scaledWidth=this.width/this.scale;
+    this.scaledHeight=this.height/this.scale;
   }
 
   /**
@@ -31,10 +34,10 @@ class Clothing {
    */
   intersect() {
     if (
-      mouseX > this.x &&
-      mouseX < this.x + this.width &&
-      mouseY > this.y &&
-      mouseY < this.y + this.height
+      this.sketch.mouseX > this.x &&
+      this.sketch.mouseX < this.x + this.scaledWidth &&
+      this.sketch.mouseY > this.y &&
+      this.sketch.mouseY < this.y + this.scaledHeight
     ) {
       return true;
     } else {
@@ -47,10 +50,9 @@ class Clothing {
    */
 
   clothingOnLizard() {
-    imageMode(CENTER);
+    this.sketch.imageMode(this.sketch.CENTER);
     if (this.active) {
-      image(this.fileName, mouseX, mouseY, this.width, this.height);
-      // console.log(this.fileName);
+      this.sketch.image(this.fileName, this.sketch.mouseX, this.sketch.mouseY, this.scaledWidth, this.scaledHeight);
     }
   }
 
@@ -58,15 +60,15 @@ class Clothing {
    * rotate item of clothing on hover
    */
   rotateIcon() {
-    push();
-    imageMode(CENTER);
-    translate(this.x + this.width / 2, this.y + this.height / 2);
+    this.sketch.push();
+    this.sketch.imageMode(this.sketch.CENTER);
+    this.sketch.translate(this.x + this.scaledWidth / 2, this.y + this.scaledHeight / 2);
     if (this.currentAngle > this.rMax || this.currentAngle < this.rMin) {
       this.rSpeed *= -1; //changing direction of rotation
     }
-    rotate(this.currentAngle);
-    image(this.fileName, 0, 0, this.width, this.height);
+    this.sketch.rotate(this.currentAngle);
+    this.sketch.image(this.fileName, 0, 0, this.scaledWidth, this.scaledHeight);
     this.currentAngle += this.rSpeed;
-    pop();
+    this.sketch.pop();
   }
 }

@@ -1,8 +1,9 @@
 class Button {
-  constructor(x, y, w, h, fileName) {
+  constructor(sketch, x, y, w, h, fileName) {
+    this.sketch = sketch;
     this.x = x;
     this.y = y;
-    this.fileName = loadImage(fileName);
+    this.fileName = this.sketch.loadImage(fileName);
     this.width = w;
     this.height = h;
     this.currentAngle = 0; //starting point for rotation
@@ -13,10 +14,10 @@ class Button {
 
   intersect() {
     if (
-      mouseX > this.x &&
-      mouseX < this.x + this.width &&
-      mouseY > this.y &&
-      mouseY < this.y + this.height
+      this.sketch.mouseX > this.x &&
+      this.sketch.mouseX < this.x + this.width &&
+      this.sketch.mouseY > this.y &&
+      this.sketch.mouseY < this.y + this.height
     ) {
       return true;
     } else {
@@ -25,32 +26,23 @@ class Button {
   }
 
   rotateIcon() {
-    push();
-    imageMode(CENTER);
-    translate(this.x + this.width / 2, this.y + this.height / 2);
+    this.sketch.push();
+    this.sketch.imageMode(this.sketch.CENTER);
+    this.sketch.translate(this.x + this.width / 2, this.y + this.height / 2);
     if (this.currentAngle > this.rMax || this.currentAngle < this.rMin) {
       this.rSpeed *= -1; //changing direction of rotation
     }
-    rotate(this.currentAngle);
-    image(this.fileName, 0, 0, this.width, this.height);
+    this.sketch.rotate(this.currentAngle);
+    this.sketch.image(this.fileName, 0, 0, this.width, this.height);
     this.currentAngle += this.rSpeed;
-    pop();
+    this.sketch.pop();
   }
 
-  show(){
+  show() {
     if (this.intersect()) {
-        this.rotateIcon();
-      } else {
-        image(
-          this.fileName,
-          this.x,
-          this.y,
-          this.width,
-          this.height
-        );
-      }
-      // if(this.fileName.includes("bow")){
-        
-      
+      this.rotateIcon();
+    } else {
+      this.sketch.image(this.fileName, this.x, this.y, this.width, this.height);
+    }
   }
 }

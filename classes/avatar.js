@@ -1,5 +1,6 @@
 class avatar{
-    constructor(img){
+    constructor(sketch, img){
+        this.sketch=sketch;
         this.clothes={
             //key:value
             top:{file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
@@ -18,11 +19,11 @@ class avatar{
     }
 
     display(x,y,scale){
-        push();
-        translate(x,y);
+        this.sketch.push();
+        this.sketch.translate(x,y);
         var scaledWidth=this.width/scale;
         var scaledHeight=this.height/scale;
-        image(this.image, 0, 0, scaledWidth, scaledHeight);
+        this.sketch.image(this.image, 0, 0, scaledWidth, scaledHeight);
         if(this.pet!=undefined){
             //position of pet
             image(this.pet.fileName, x+width/2, y+height, 100, 100)
@@ -39,7 +40,7 @@ class avatar{
             
             if(object.file!=undefined){
                 // image(object.loadedImage,object.x,object.y, object.width, object.height);
-                push();
+                this.sketch.push();
                 var clothingX=0;
                 var clothingY=0;
                 if(itemType=="top" || itemType=="jacket"){
@@ -52,15 +53,15 @@ class avatar{
                     clothingX=scaledWidth/2 - 25;
                     clothingY=scaledHeight/2+ 50;
                 }else if(itemType=="shoes"){
-                    clothingX=scaledWidth/2-70;
-                    clothingY=scaledHeight-60; 
+                    clothingX=scaledWidth/2-68;
+                    clothingY=scaledHeight-62; 
                 }
-                imageMode(CENTER);
-                image(object.loadedImage,clothingX,clothingY, object.width, object.height);
-                pop();
+                this.sketch.imageMode(this.sketch.CENTER);
+                this.sketch.image(object.loadedImage,clothingX,clothingY, object.width/(scale * 3), object.height/(scale * 3));
+                this.sketch.pop();
                 
             }
         })
-        pop();   
+        this.sketch.pop();   
     }
 }
