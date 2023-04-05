@@ -12,6 +12,7 @@
     <script src="classes/tattoo.js"></script> --> 
     <!-- sketch.js always at the bottom -->
     <!-- <script src="sketch.js"></script> -->
+    <script src="classes/pets.js"></script>
     <script src="classes/Clothing.js"></script>
     <script src="classes/avatar.js"></script>
     <script src="classes/button.js"></script>
@@ -19,15 +20,29 @@
       <img src="menu/background.png" />
       <button id="phone" class= "menu-btn"><img src="menu/phonecool.png" /></button>
       <button id="home" class= "menu-btn"><img src="menu/home.png" /></button>
+      <button id="mall" class= "menu-btn"><img src="menu/themall.png" /></button>
     </div>
-    <div id="phonescene">
+    <div id="phonescene" class="scene">
       <button class="menu-btn bow" id="phone-close-btn"><img src="buttons/bow.png"></button>
     </div>
-    <div id="homescene">
+    <div id="homescene" class="scene">
       <button class="menu-btn bow" id="home-close-btn"><img src="buttons/bow.png"></button>
     </div>
+    <div id="mallscene" class="scene">
+      <button class="menu-btn bow" id="mall-close-btn"><img src="buttons/bow.png"></button>
+      <div id="storefronts">
+      <button id="petstore" class= "menu-btn"><img src="storefronts/bugstore.png" /></button>
+      <button id="clothingstore" class= "menu-btn"><img src="storefronts/clothingstore.png" /></button>
+      <button id="nailsalon" class= "menu-btn"><img src="storefronts/nailsalon.png" /></button>
+    </div>
+    </div>
+    <div id="petscene" class="scene">
+      <button class="menu-btn bow" id="pet-close-btn"><img src="buttons/bow.png"></button>
+    </div>
+
     <script src = "phonescene.js"></script>
     <script src = "homescene.js"></script>
+    <script src = "petscene.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

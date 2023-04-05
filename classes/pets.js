@@ -7,7 +7,8 @@ class pet {
    * @param {number} h - height
    * @param {number} fileName - location of image i want to use
    */
-    constructor(x, y, w, h, fileName) {
+    constructor(sketch, x, y, w, h, fileName) {
+      this.sketch=sketch;
       this.x = x;
       this.y = y;
       this.fileName = fileName;
@@ -27,10 +28,10 @@ class pet {
      */
     intersect() {
       if (
-        mouseX > this.x &&
-        mouseX < this.x + this.width &&
-        mouseY > this.y &&
-        mouseY < this.y + this.height
+        this.sketch.mouseX > this.x &&
+        this.sketch.mouseX < this.x + this.width &&
+        this.sketch.mouseY > this.y &&
+        this.sketch.mouseY < this.y + this.height
       ) {
         return true;
       } else {
@@ -39,6 +40,6 @@ class pet {
     }
 
     show(){
-        image(this.fileName, this.x, this.y, this.width, this.height);
+      this.sketch.image(this.fileName, this.x, this.y, this.width, this.height);
     }
 }

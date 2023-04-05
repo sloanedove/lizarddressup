@@ -914,7 +914,6 @@ function mouseReleased() {
         //checks if clothing item is on lizard
         if (mouseX <= 450) {
           clothingItem.placed = true;
-          //TODO : saving x and y locations to clothingLocation object on lizard
           
 
           if (clothingItem.file.includes("dress")) {

@@ -33,7 +33,14 @@ class avatar{
                 image(this.tattoos[i],x,y,width,height);
             }
         }
-        //TODO : adjust clothing size based on scale
+        
+        this.sketch.pop();   
+    }
+    displayClothing(x,y,scale){
+        this.sketch.push();
+        this.sketch.translate(x,y);
+        var scaledWidth=this.width/scale;
+        var scaledHeight=this.height/scale;
         Object.entries(this.clothes).forEach((clothingItem)=>{
             const [itemType, object] = clothingItem;
             // let file = clothingItem[1];
@@ -62,6 +69,6 @@ class avatar{
                 
             }
         })
-        this.sketch.pop();   
+        this.sketch.pop();
     }
 }

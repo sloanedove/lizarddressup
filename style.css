@@ -1,56 +1,82 @@
-html,body{
-    margin:0;
-    padding:0;
-    /* background-image: url("menu/background.png");
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* background-image: url("menu/background.png");
     object-fit: cover; */
-    width:100%;
-    height:100%;
-    overflow: clip;
+  width: 100%;
+  height: 100%;
+  overflow: clip;
 }
-#backgroundimage{
-    width: 100%;
-    height: 100%;
+#backgroundimage {
+  width: 100%;
+  height: 100%;
 }
-#backgroundimage img{
-    width:100%;
-    object-fit: contain;
+#backgroundimage img {
+  width: 100%;
+  object-fit: contain;
 }
 /* all buttons */
-.menu-btn{
-background: none;
-border: none;
-position: absolute;
-cursor: pointer;
+.menu-btn {
+  background: none;
+  border: none;
+  position: absolute;
+  cursor: pointer;
 }
 
-.menu-btn img{
-    width: 100%;
+.menu-btn img {
+  width: 100%;
 }
 
-.bow{
-width:100px;
-top:10px;
-left:10px;
+.bow {
+  width: 100px;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
 }
 
-#phone{
-    width: 200px;
-    top: 50%;
-    left: 65%;
+#phone {
+  width: 200px;
+  top: 50%;
+  left: 65%;
 }
 
-#home{
-    width: 350px;
-    top: 50%;
-    left: 20%;
+#home {
+  width: 350px;
+  top: 50%;
+  left: 20%;
+}
+
+#mall {
+  width: 300px;
+  top: 45%;
+  left: 40%;
+}
+#storefronts{
+display: flex;
+flex-direction: row;
+height: 100%;
+justify-content: center;
+}
+
+#storefronts button{
+position: relative;
+min-height: 100%;
+padding: 0; 
+z-index: 0;
 }
 
 /* all scene containers */
-#phonescene, #homescene{
-    position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    display: none;
+.scene{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
 }
+
+#mallscene{
+    background-color: white;
+}
+
