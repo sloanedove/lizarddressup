@@ -5,10 +5,11 @@ class swatch {
    * @param {number} y - y-coordinate
    * @param {number} fileName - location of image i want to use
    */
-    constructor(x, y, fileName) {
+    constructor(sketch, x, y, fileName) {
+      this.sketch = sketch;
       this.x = x;
       this.y = y;
-      this.fileName = loadImage(fileName);
+      this.fileName = this.sketch.loadImage(fileName);
       this.width = 40;
       this.height = 40;
       this.size = 250; //size of item
@@ -27,10 +28,10 @@ class swatch {
      */
     intersect() {
       if (
-        mouseX > this.x &&
-        mouseX < this.x + this.width &&
-        mouseY > this.y &&
-        mouseY < this.y + this.height
+        this.sketch.mouseX > this.x &&
+        this.sketch.mouseX < this.x + this.width &&
+        this.sketch.mouseY > this.y &&
+        this.sketch.mouseY < this.y + this.height
       ) {
         return true;
       } else {
@@ -44,8 +45,8 @@ class swatch {
   
     clothingOnLizard() {
       if (this.active) {
-        imageMode(CENTER);
-        image(this.fileName, mouseX, mouseY, this.width, this.height);
+        this.sketch.imageMode(this.sketch.CENTER);
+        this.sketch.image(this.fileName, this.sketch.mouseX, this.sketch.mouseY, this.width, this.height);
       }
     }
   
@@ -53,20 +54,20 @@ class swatch {
      * rotate item of clothing on hover
      */
     rotateIcon() {
-      push();
-      imageMode(CENTER);
-      translate(this.x + this.width / 2, this.y + this.height / 2);
+      this.sketch.push();
+      this.sketch.imageMode(this.sketch.CENTER);
+      this.sketch.translate(this.x + this.width / 2, this.y + this.height / 2);
       if (this.currentAngle > this.rMax || this.currentAngle < this.rMin) {
         this.rSpeed *= -1; //changing direction of rotation
       }
-      rotate(this.currentAngle);
-      image(this.fileName, 0, 0, this.width, this.height);
+      this.sketch.rotate(this.currentAngle);
+      this.sketch.image(this.fileName, 0, 0, this.width, this.height);
       this.currentAngle += this.rSpeed;
-      pop();
+      this.sketch.pop();
     }
 
     show(){
-        image(this.fileName, this.x, this.y, this.width, this.height);
+        this.sketch.image(this.fileName, this.x, this.y, this.width, this.height);
     }
   }
   

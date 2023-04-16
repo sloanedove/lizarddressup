@@ -3,30 +3,31 @@ class avatar{
         this.sketch=sketch;
         this.clothes={
             //key:value
-            top:{file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
-            bottom: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
             shoes: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
-            jacket: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+            bottom: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+            top:{file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
             dress: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+            jacket: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+    
 
         };
         this.width=860;
         this.height=1500;
         this.pet=undefined;
-        this.image=img;
+        this.avatarimage=img;
         this.tattoos=[];
       
     }
 
-    display(x,y,scale){
-        this.sketch.push();
-        this.sketch.translate(x,y);
+    display(sketch,x,y,scale){
+        sketch.push();
+        sketch.translate(x,y);
         var scaledWidth=this.width/scale;
         var scaledHeight=this.height/scale;
-        this.sketch.image(this.image, 0, 0, scaledWidth, scaledHeight);
+        sketch.image(this.avatarimage, 0, 0, scaledWidth, scaledHeight);
         if(this.pet!=undefined){
             //position of pet
-            image(this.pet.fileName, x+width/2, y+height, 100, 100)
+            // image(this.pet.fileName, x+width/2, y+height, 100, 100)
         }
         if (this.tattoos.length!=0){
             for(let i=0; i<this.tattoos.length; i++){
@@ -34,11 +35,12 @@ class avatar{
             }
         }
         
-        this.sketch.pop();   
+        sketch.pop();   
     }
-    displayClothing(x,y,scale){
-        this.sketch.push();
-        this.sketch.translate(x,y);
+    displayClothing(sketch, x,y,scale){
+        sketch.push();
+        sketch.imageMode(sketch.CORNER);
+        sketch.translate(x,y);
         var scaledWidth=this.width/scale;
         var scaledHeight=this.height/scale;
         Object.entries(this.clothes).forEach((clothingItem)=>{
@@ -47,12 +49,12 @@ class avatar{
             
             if(object.file!=undefined){
                 // image(object.loadedImage,object.x,object.y, object.width, object.height);
-                this.sketch.push();
+                sketch.push();
                 var clothingX=0;
                 var clothingY=0;
                 if(itemType=="top" || itemType=="jacket"){
-                    clothingX=scaledWidth/2.25 + 5;
-                    clothingY=scaledHeight/2.25 + 6; 
+                    clothingX=scaledWidth/2.25 + 7;
+                    clothingY=scaledHeight/2.25 + 13; 
                 }else if(itemType=="bottom"){
                     clothingX=scaledWidth/2.25 - 30;
                     clothingY=scaledHeight/4*3;
@@ -63,12 +65,12 @@ class avatar{
                     clothingX=scaledWidth/2-68;
                     clothingY=scaledHeight-62; 
                 }
-                this.sketch.imageMode(this.sketch.CENTER);
-                this.sketch.image(object.loadedImage,clothingX,clothingY, object.width/(scale * 3), object.height/(scale * 3));
-                this.sketch.pop();
+                sketch.imageMode(this.sketch.CENTER);
+                sketch.image(object.loadedImage,clothingX,clothingY, object.width/1.1, object.height/1.1);
+                sketch.pop();
                 
             }
         })
-        this.sketch.pop();
+        sketch.pop();
     }
 }

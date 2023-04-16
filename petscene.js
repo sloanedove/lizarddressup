@@ -1,5 +1,6 @@
 function petscene(avatarlizard) {
-  const scene = (this.avatarlizard)=(sketch) => {
+  // function petscene(){
+  const scene = (sketch) => {
     var petstorebackground;
     var petFileNames = [];
     var pets = [];
@@ -66,13 +67,13 @@ function petscene(avatarlizard) {
         pets[i].show();
         if (pets[i].intersect() && sketch.mouseIsPressed) {
           if (i == 0) {
-            ant1 = new pet(sketch, 400, 250, 200, 200, petFileNames[i * 3]);
-            ant2 = new pet(sketch,400, 350, 200, 200, petFileNames[i * 3 + 1]);
-            ant3 = new pet(sketch,400, 450, 200, 200, petFileNames[i * 3 + 2]);
+            ant1 = new pet(sketch, 675, 650, 200, 200, petFileNames[i * 3]);
+            ant2 = new pet(sketch,875, 650, 200, 200, petFileNames[i * 3 + 1]);
+            ant3 = new pet(sketch,1075, 650, 200, 200, petFileNames[i * 3 + 2]);
           } else if (i == 1) {
-            beetle1 = new pet(sketch,750, 250, 200, 200, petFileNames[i * 3]);
-            beetle2 = new pet(sketch,750, 300, 200, 200, petFileNames[i * 3 + 1]);
-            beetle3 = new pet(sketch,750, 400, 200, 200, petFileNames[i * 3 + 2]);
+            beetle1 = new pet(sketch,675, 650, 200, 200, petFileNames[i * 3]);
+            beetle2 = new pet(sketch,875, 650, 200, 200, petFileNames[i * 3 + 1]);
+            beetle3 = new pet(sketch,1075, 650, 200, 200, petFileNames[i * 3 + 2]);
           } else if (i == 2) {
             caterpillar1 = new pet(sketch,200, 200, 200, 200, petFileNames[i * 3]);
             caterpillar2 = new pet(sketch,200, 300, 200, 200, petFileNames[i * 3 + 1]);
@@ -227,7 +228,8 @@ function petscene(avatarlizard) {
         worm2 = undefined;
         worm3 = undefined;
       }
-      avatarlizard.display(150, 275, 2.75);
+      avatarlizard.display(sketch, 100, 275, 2.75);
+      avatarlizard.displayClothing(sketch, 100, 275, 2.75);
     };
   };
   let petscenediv = document.getElementById("petscene");
