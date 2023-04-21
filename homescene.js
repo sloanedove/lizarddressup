@@ -24,6 +24,14 @@ function homescene(avatarlizard) {
         50,
         "buttons/arrow.png"
       );
+      resetButton = new Button(
+        sketch,
+        75,
+        900 - 100,
+        1323/10,
+        1150/10,
+        "buttons/burger.png"
+      );
 
       //adding clothing pages
       clothing.push(0);
@@ -367,6 +375,9 @@ function homescene(avatarlizard) {
 
       sketch.pop();
       sketch.image(arrow.fileName, arrow.x, arrow.y, arrow.width, arrow.height);
+      sketch.image(resetButton.fileName, resetButton.x, resetButton.y, resetButton.width, resetButton.height);
+      sketch.moreClothes();
+      sketch.avatarlizard.displayClothing(sketch, 75, 150, 2.75);
     };
 
     sketch.mousePressed = () => {
@@ -375,6 +386,18 @@ function homescene(avatarlizard) {
         if (closetPage >= 3) {
           closetPage = 0;
         }
+      }
+      if(resetButton.intersect()){
+        sketch.avatarlizard.clothes={
+          //key:value
+          shoes: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+          bottom: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+          top:{file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+          dress: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+          jacket: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+          accessory: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
+
+      };
       }
       for (var i = 0; i < clothing[closetPage].length; i++) {
         //checking if clothing is active
@@ -466,8 +489,8 @@ function homescene(avatarlizard) {
         }
       }
     };
-    let homebuttonclose = document.getElementById("home-close-btn");
-    homebuttonclose.addEventListener("click", () => {
+
+    sketch.moreClothes = () => {
       for (let i = 0; i < clothing.length; i++) {
         for (let j = 0; j < clothing[i].length; j++) {
           let clothingItem = clothing[i][j];
@@ -534,10 +557,26 @@ function homescene(avatarlizard) {
               sketch.avatarlizard.clothes.shoes.width = clothingItem.scaledWidth;
               sketch.avatarlizard.clothes.shoes.height = clothingItem.scaledHeight;
               sketch.avatarlizard.clothes.shoes.loadedImage = clothingItem.fileName;
+            } else if (clothingItem.file.includes("accessory")) {
+              sketch.avatarlizard.clothes.accessory.file = sketch.addClothes(
+                clothingItem,
+                sketch.avatarlizard.clothes.accessory.file,
+                "accessory"
+              );
+              sketch.avatarlizard.clothes.accessory.x = clothingItem.x;
+              sketch.avatarlizard.clothes.accessory.y = clothingItem.y;
+              sketch.avatarlizard.clothes.accessory.width = clothingItem.scaledWidth;
+              sketch.avatarlizard.clothes.accessory.height = clothingItem.scaledHeight;
+              sketch.avatarlizard.clothes.accessory.loadedImage = clothingItem.fileName;
             }
           }
         }
       }
+    }
+    
+    let homebuttonclose = document.getElementById("home-close-btn");
+    homebuttonclose.addEventListener("click", () => {
+      sketch.moreClothes();
       console.log(sketch.avatarlizard);
       document.getElementById("homescene").style.display = "none";
     });

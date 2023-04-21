@@ -8,11 +8,15 @@ window.onload = () => {
     homescenediv.style.display = "block";
     hs=homescene();
     avatarlizard=hs.avatarlizard;
+    document.getElementById("mall").classList.remove("hidden");
+    document.getElementById("mallblocked").classList.add("hidden");
   });
   let mallscenediv = document.getElementById("mallscene");
   let mallbutton = document.getElementById("mall");
   mallbutton.addEventListener("click", () => {
     mallscenediv.style.display = "block";
+    document.getElementById("phone").classList.remove("hidden");
+    document.getElementById("phoneblocked").classList.add("hidden");
     // mallscene();
   });
   let petscenediv = document.getElementById("petscene");

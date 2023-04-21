@@ -8,7 +8,7 @@ class avatar{
             top:{file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
             dress: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
             jacket: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
-    
+            accessory: {file:undefined, x:undefined,y:undefined, width: undefined, height: undefined, loadedImage: undefined},
 
         };
         this.width=860;
@@ -52,21 +52,29 @@ class avatar{
                 sketch.push();
                 var clothingX=0;
                 var clothingY=0;
-                if(itemType=="top" || itemType=="jacket"){
-                    clothingX=scaledWidth/2.25 + 7;
-                    clothingY=scaledHeight/2.25 + 13; 
-                }else if(itemType=="bottom"){
-                    clothingX=scaledWidth/2.25 - 30;
-                    clothingY=scaledHeight/4*3;
-                }else if(itemType=="dress"){
-                    clothingX=scaledWidth/2 - 25;
-                    clothingY=scaledHeight/2+ 50;
-                }else if(itemType=="shoes"){
-                    clothingX=scaledWidth/2-68;
-                    clothingY=scaledHeight-62; 
+                var w=0;
+                var h=0;
+                if(object.file=="clothing/tops/top1.png"){
+                    clothingX=80;
+                    clothingY=190;
+                    w=object.width;
+                    h=object.height;
                 }
-                sketch.imageMode(this.sketch.CENTER);
-                sketch.image(object.loadedImage,clothingX,clothingY, object.width/1.1, object.height/1.1);
+                // if(itemType=="top" || itemType=="jacket"){
+                //     clothingX=scaledWidth/2.25 + 7;
+                //     clothingY=scaledHeight/2.25 + 13; 
+                // }else if(itemType=="bottom"){
+                //     clothingX=scaledWidth/2.25 - 30;
+                //     clothingY=scaledHeight/4*3;
+                // }else if(itemType=="dress"){
+                //     clothingX=scaledWidth/2 - 25;
+                //     clothingY=scaledHeight/2+ 50;
+                // }else if(itemType=="shoes"){
+                //     clothingX=scaledWidth/2-68;
+                //     clothingY=scaledHeight-62; 
+                // }
+               
+                sketch.image(object.loadedImage,clothingX,clothingY, w, h);
                 sketch.pop();
                 
             }

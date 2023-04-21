@@ -43,7 +43,21 @@ body {
   z-index: 2;
 }
 
+.hidden{
+  display: none;
+}
+
+.blocked{
+  filter:grayscale(1);
+}
+
 #phone {
+  width: 200px;
+  top: 50%;
+  left: 65%;
+}
+
+#phoneblocked {
   width: 200px;
   top: 50%;
   left: 65%;
@@ -60,6 +74,13 @@ body {
   top: 45%;
   left: 40%;
 }
+
+#mallblocked {
+  width: 300px;
+  top: 45%;
+  left: 40%;
+}
+
 #storefronts{
 display: flex;
 flex-direction: row;
