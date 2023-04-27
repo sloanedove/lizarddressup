@@ -54,12 +54,141 @@ class avatar{
                 var clothingY=0;
                 var w=0;
                 var h=0;
+
+                //tops
+
                 if(object.file=="clothing/tops/top1.png"){
                     clothingX=80;
                     clothingY=190;
                     w=object.width;
                     h=object.height;
                 }
+                if(object.file=="clothing/tops/top2.png"){
+                    clothingX=100;
+                    clothingY=209;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/tops/top3.png"){
+                    clothingX=102;
+                    clothingY=200;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/tops/top4.png"){
+                    clothingX=94;
+                    clothingY=192;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/tops/top5.png"){
+                    clothingX=80;
+                    clothingY=188;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/tops/top6.png"){
+                    clothingX=77;
+                    clothingY=194;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/tops/top7.png"){
+                    clothingX=65;
+                    clothingY=192;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/tops/top8.png"){
+                    clothingX=69;
+                    clothingY=197;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/tops/top10.png"){
+                    clothingX=103;
+                    clothingY=199;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/tops/top9.png"){
+                    clothingX=74;
+                    clothingY=197;
+                    w=object.width;
+                    h=object.height;
+                }
+
+                //bottoms
+
+                if(object.file=="clothing/bottoms/bottom1.png"){
+                    clothingX=72;
+                    clothingY=288;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom2.png"){
+                    clothingX=7;
+                    clothingY=288;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom3.png"){
+                    clothingX=45;
+                    clothingY=292;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom4.png"){
+                    clothingX=38;
+                    clothingY=292;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom5.png"){
+                    clothingX=49;
+                    clothingY=295;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom6.png"){
+                    clothingX=63;
+                    clothingY=295;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom7.png"){
+                    clothingX=35;
+                    clothingY=303;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom8.png"){
+                    clothingX=63;
+                    clothingY=300;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom10.png"){
+                    clothingX=43;
+                    clothingY=307;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom9.png"){
+                    clothingX=25;
+                    clothingY=303;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/bottoms/bottom11.png"){
+                    clothingX=68;
+                    clothingY=306;
+                    w=object.width;
+                    h=object.height;
+                }
+
+
+
                 // if(itemType=="top" || itemType=="jacket"){
                 //     clothingX=scaledWidth/2.25 + 7;
                 //     clothingY=scaledHeight/2.25 + 13; 

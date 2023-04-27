@@ -81,6 +81,12 @@ body {
   left: 40%;
 }
 
+#sun{
+  width: 300px;
+  top: 10%;
+  left: 10%;
+}
+
 #storefronts{
 display: flex;
 flex-direction: row;

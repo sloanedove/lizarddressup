@@ -172,7 +172,7 @@ function homescene(avatarlizard) {
           350,
           1500,
           1500,
-          10,
+          12,
           "clothing/bottoms/bottom11.png"
         )
       );
@@ -185,7 +185,7 @@ function homescene(avatarlizard) {
         new Clothing(sketch, 645, 80, 1253, 1456, 14, "clothing/tops/top2.png")
       );
       clothing[0].push(
-        new Clothing(sketch, 750, 70, 966, 1289, 10, "clothing/tops/top3.png")
+        new Clothing(sketch, 750, 70, 966, 1289, 11, "clothing/tops/top3.png")
       );
       clothing[0].push(
         new Clothing(sketch, 855, 70, 1083, 1400, 10, "clothing/tops/top4.png")
