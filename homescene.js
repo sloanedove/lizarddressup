@@ -14,7 +14,7 @@ function homescene(avatarlizard) {
         900 - 250,
         100,
         100,
-        "buttons/bow.png"
+        "buttons/deserticon.png"
       );
       arrow = new Button(
         sketch,
@@ -22,7 +22,7 @@ function homescene(avatarlizard) {
         900 - 100,
         100,
         50,
-        "buttons/arrow.png"
+        "buttons/forwardarrow.png"
       );
       resetButton = new Button(
         sketch,
@@ -30,7 +30,7 @@ function homescene(avatarlizard) {
         900 - 100,
         1323/10,
         1150/10,
-        "buttons/burger.png"
+        "buttons/clearoutfitbtn.png"
       );
 
       //adding clothing pages
@@ -344,12 +344,13 @@ function homescene(avatarlizard) {
 
     sketch.draw = () => {
       sketch.dressUpScreen();
-      // console.log(sketch.avatarlizard);
     };
 
     sketch.dressUpScreen = () => {
       sketch.background(roombackground);
+      sketch.push();
       sketch.avatarlizard.display(sketch, 75, 150, 2.75);
+      sketch.pop();
       for (var i = 0; i < clothing[closetPage].length; i++) {
         if (clothing[closetPage][i].intersect()) {
           clothing[closetPage][i].rotateIcon();
@@ -377,7 +378,9 @@ function homescene(avatarlizard) {
       sketch.image(arrow.fileName, arrow.x, arrow.y, arrow.width, arrow.height);
       sketch.image(resetButton.fileName, resetButton.x, resetButton.y, resetButton.width, resetButton.height);
       sketch.moreClothes();
+      sketch.push();
       sketch.avatarlizard.displayClothing(sketch, 75, 150, 2.75);
+      sketch.pop();
     };
 
     sketch.mousePressed = () => {
@@ -577,11 +580,12 @@ function homescene(avatarlizard) {
     let homebuttonclose = document.getElementById("home-close-btn");
     homebuttonclose.addEventListener("click", () => {
       sketch.moreClothes();
-      console.log(sketch.avatarlizard);
       document.getElementById("homescene").style.display = "none";
+      let mallbutton = document.getElementById("mall");
+      mallbutton.classList.add("notification");
+      document.getElementById("mall-popup").classList.remove("hidden");
     });
   };
   let s = new p5(scene);
-  // console.log(s[avatarlizard]);
   return s;
 }

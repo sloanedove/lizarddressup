@@ -141,7 +141,6 @@ function preload() {
   //   } else {
   //     pets.push(new pet(100 + count * 100, 400, 200, 200, petFileNames[i]));
   //     count += 3;
-  //     console.log(count);
   //   }
   // }
 
@@ -526,7 +525,7 @@ function dressUpScreen() {
   // for (var j = 0; j < clothing.length; j++) {
   //   for (var i = 0; i < clothing[j].length; i++) {
   //     if (clothing[j][i].placed) {
-  //       // console.log(clothing[j][i].placed);
+  //    
   //       image(
   //         clothing[j][i].fileName,
   //         clothing[j][i].x,
@@ -859,7 +858,6 @@ function checkDress() {
     if (
       avatarlizard.clothes.top.file != undefined ||
       avatarlizard.clothes.bottom.file != undefined) {
-      console.log("adding dress");
       for (var j = 0; j < clothing[closetPage].length; j++) {
         if (avatarlizard.clothes.top.file == clothing[closetPage][j].file || avatarlizard.clothes.bottom.file == clothing[closetPage][j].file ) {
           clothing[closetPage][j].placed = false;
@@ -872,7 +870,6 @@ function checkDress() {
     }
   }else{
     if(avatarlizard.clothes.dress.file != undefined){
-      console.log("removing dress");
       for (var j = 0; j < clothing[closetPage].length; j++) {
         if (avatarlizard.clothes.dress.file == clothing[closetPage][j].file) {
           clothing[closetPage][j].placed = false;
@@ -1006,16 +1003,12 @@ function mouseReleased() {
         nails[0] = nailcolor[0][i];
         // nailgame/nailcolors/nail1color1.png
       } else if (mouseX >= 650 && mouseX < 760) {
-        console.log("nail2");
         nails[1] = nailcolor[1][i];
       } else if (mouseX >= 760 && mouseX < 870) {
-        console.log("nail3");
         nails[2] = nailcolor[2][i];
       } else if (mouseX >= 870 && mouseX < 1000) {
-        console.log("nail4");
         nails[3] = nailcolor[3][i];
       } else if (mouseX > 1000 && mouseX < 1080) {
-        console.log("nail5");
         nails[4] = nailcolor[4][i];
       }
     }
@@ -1034,7 +1027,6 @@ function mouseReleased() {
 //     heart.speed=randomIntFromInterval(4,10);
 //     heart.style.height="auto";
 //  //    heart.height=65;
-//     console.log(heart);
 //     document.body.appendChild(heart);
 //  }
 //   setInterval(updateHearts, 16)

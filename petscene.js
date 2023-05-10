@@ -51,6 +51,7 @@ function petscene(avatarlizard) {
     };
     sketch.setup = () => {
       let canvas = sketch.createCanvas(window.innerWidth, window.innerHeight);
+      sketch.avatarlizard = avatarlizard;
       canvas.parent("petscene");
       sketch.background(0);
     };
@@ -68,28 +69,119 @@ function petscene(avatarlizard) {
         if (pets[i].intersect() && sketch.mouseIsPressed) {
           if (i == 0) {
             ant1 = new pet(sketch, 675, 650, 200, 200, petFileNames[i * 3]);
-            ant2 = new pet(sketch,875, 650, 200, 200, petFileNames[i * 3 + 1]);
-            ant3 = new pet(sketch,1075, 650, 200, 200, petFileNames[i * 3 + 2]);
+            ant2 = new pet(sketch, 875, 650, 200, 200, petFileNames[i * 3 + 1]);
+            ant3 = new pet(
+              sketch,
+              1075,
+              650,
+              200,
+              200,
+              petFileNames[i * 3 + 2]
+            );
           } else if (i == 1) {
-            beetle1 = new pet(sketch,675, 650, 200, 200, petFileNames[i * 3]);
-            beetle2 = new pet(sketch,875, 650, 200, 200, petFileNames[i * 3 + 1]);
-            beetle3 = new pet(sketch,1075, 650, 200, 200, petFileNames[i * 3 + 2]);
+            beetle1 = new pet(sketch, 675, 650, 200, 200, petFileNames[i * 3]);
+            beetle2 = new pet(
+              sketch,
+              875,
+              650,
+              200,
+              200,
+              petFileNames[i * 3 + 1]
+            );
+            beetle3 = new pet(
+              sketch,
+              1075,
+              650,
+              200,
+              200,
+              petFileNames[i * 3 + 2]
+            );
           } else if (i == 2) {
-            caterpillar1 = new pet(sketch,200, 200, 200, 200, petFileNames[i * 3]);
-            caterpillar2 = new pet(sketch,200, 300, 200, 200, petFileNames[i * 3 + 1]);
-            caterpillar3 = new pet(sketch,200, 400, 200, 200, petFileNames[i * 3 + 2]);
+            caterpillar1 = new pet(
+              sketch,
+              200,
+              200,
+              200,
+              200,
+              petFileNames[i * 3]
+            );
+            caterpillar2 = new pet(
+              sketch,
+              200,
+              300,
+              200,
+              200,
+              petFileNames[i * 3 + 1]
+            );
+            caterpillar3 = new pet(
+              sketch,
+              200,
+              400,
+              200,
+              200,
+              petFileNames[i * 3 + 2]
+            );
           } else if (i == 3) {
-            grasshopper1 = new pet(sketch,200, 200, 200, 200, petFileNames[i * 3]);
-            grasshopper2 = new pet(sketch,200, 300, 200, 200, petFileNames[i * 3 + 1]);
-            grasshopper3 = new pet(sketch,200, 400, 200, 200, petFileNames[i * 3 + 2]);
+            grasshopper1 = new pet(
+              sketch,
+              200,
+              200,
+              200,
+              200,
+              petFileNames[i * 3]
+            );
+            grasshopper2 = new pet(
+              sketch,
+              200,
+              300,
+              200,
+              200,
+              petFileNames[i * 3 + 1]
+            );
+            grasshopper3 = new pet(
+              sketch,
+              200,
+              400,
+              200,
+              200,
+              petFileNames[i * 3 + 2]
+            );
           } else if (i == 4) {
-            ladybug1 = new pet(sketch,200, 200, 200, 200, petFileNames[i * 3]);
-            ladybug2 = new pet(sketch,200, 300, 200, 200, petFileNames[i * 3 + 1]);
-            ladybug3 = new pet(sketch,200, 400, 200, 200, petFileNames[i * 3 + 2]);
+            ladybug1 = new pet(sketch, 200, 200, 200, 200, petFileNames[i * 3]);
+            ladybug2 = new pet(
+              sketch,
+              200,
+              300,
+              200,
+              200,
+              petFileNames[i * 3 + 1]
+            );
+            ladybug3 = new pet(
+              sketch,
+              200,
+              400,
+              200,
+              200,
+              petFileNames[i * 3 + 2]
+            );
           } else if (i == 5) {
-            worm1 = new pet(sketch,200, 200, 200, 200, petFileNames[i * 3]);
-            worm2 = new pet(sketch,200, 300, 200, 200, petFileNames[i * 3 + 1]);
-            worm3 = new pet(sketch,200, 400, 200, 200, petFileNames[i * 3 + 2]);
+            worm1 = new pet(sketch, 200, 200, 200, 200, petFileNames[i * 3]);
+            worm2 = new pet(
+              sketch,
+              200,
+              300,
+              200,
+              200,
+              petFileNames[i * 3 + 1]
+            );
+            worm3 = new pet(
+              sketch,
+              200,
+              400,
+              200,
+              200,
+              petFileNames[i * 3 + 2]
+            );
           }
         }
       }
@@ -99,13 +191,13 @@ function petscene(avatarlizard) {
         ant2.show();
         ant3.show();
         if (ant1.intersect()) {
-          avatarlizard.pet = ant1;
+          sketch.avatarlizard.pet = ant1;
         }
         if (ant2.intersect()) {
-          avatarlizard.pet = ant2;
+          sketch.avatarlizard.pet = ant2;
         }
         if (ant3.intersect()) {
-          avatarlizard.pet = ant3;
+          sketch.avatarlizard.pet = ant3;
         }
       }
       if (!pets[0].intersect() && sketch.mouseIsPressed) {
@@ -123,13 +215,13 @@ function petscene(avatarlizard) {
         beetle2.show();
         beetle3.show();
         if (beetle1.intersect()) {
-          avatarlizard.pet = beetle1;
+          sketch.avatarlizard.pet = beetle1;
         }
         if (beetle2.intersect()) {
-          avatarlizard.pet = beetle2;
+          sketch.avatarlizard.pet = beetle2;
         }
         if (beetle3.intersect()) {
-          avatarlizard.pet = beetle3;
+          sketch.avatarlizard.pet = beetle3;
         }
       }
 
@@ -147,13 +239,13 @@ function petscene(avatarlizard) {
         caterpillar2.show();
         caterpillar3.show();
         if (caterpillar1.intersect()) {
-          avatarlizard.pet = caterpillar1;
+          sketch.avatarlizard.pet = caterpillar1;
         }
         if (caterpillar2.intersect()) {
-          avatarlizard.pet = caterpillar2;
+          sketch.avatarlizard.pet = caterpillar2;
         }
         if (caterpillar3.intersect()) {
-          avatarlizard.pet = caterpillar3;
+          sketch.avatarlizard.pet = caterpillar3;
         }
       }
       if (!pets[2].intersect() && sketch.mouseIsPressed) {
@@ -170,13 +262,13 @@ function petscene(avatarlizard) {
         grasshopper2.show();
         grasshopper3.show();
         if (grasshopper1.intersect()) {
-          avatarlizard.pet = grasshopper1;
+          sketch.avatarlizard.pet = grasshopper1;
         }
         if (grasshopper2.intersect()) {
-          avatarlizard.pet = grasshopper2;
+          sketch.avatarlizard.pet = grasshopper2;
         }
         if (grasshopper3.intersect()) {
-          avatarlizard.pet = grasshopper3;
+          sketch.avatarlizard.pet = grasshopper3;
         }
       }
       if (!pets[3].intersect() && sketch.mouseIsPressed) {
@@ -194,13 +286,13 @@ function petscene(avatarlizard) {
         ladybug3.show();
 
         if (ladybug1.intersect()) {
-          avatarlizard.pet = ladybug1;
+          sketch.avatarlizard.pet = ladybug1;
         }
         if (ladybug2.intersect()) {
-          avatarlizard.pet = ladybug2;
+          sketch.avatarlizard.pet = ladybug2;
         }
         if (ladybug3.intersect()) {
-          avatarlizard.pet = ladybug3;
+          sketch.avatarlizard.pet = ladybug3;
         }
       }
       if (!pets[4].intersect() && sketch.mouseIsPressed) {
@@ -214,13 +306,13 @@ function petscene(avatarlizard) {
         worm3.show();
 
         if (worm1.intersect()) {
-          avatarlizard.pet = worm1;
+          sketch.avatarlizard.pet = worm1;
         }
         if (worm2.intersect()) {
-          avatarlizard.pet = worm2;
+          sketch.avatarlizard.pet = worm2;
         }
         if (worm3.intersect()) {
-          avatarlizard.pet = worm3;
+          sketch.avatarlizard.pet = worm3;
         }
       }
       if (!pets[5].intersect() && sketch.mouseIsPressed) {
@@ -228,14 +320,16 @@ function petscene(avatarlizard) {
         worm2 = undefined;
         worm3 = undefined;
       }
-      avatarlizard.display(sketch, 100, 275, 2.75);
-      avatarlizard.displayClothing(sketch, 100, 275, 2.75);
+      sketch.push();
+      sketch.avatarlizard.display(sketch, 100, 275, 2.75);
+      sketch.avatarlizard.displayClothing(sketch, 100, 275, 2.75);
+      sketch.pop();
     };
+    let petscenediv = document.getElementById("petscene");
+    let petbutton = document.getElementById("pet-close-btn");
+    petbutton.addEventListener("click", () => {
+      petscenediv.style.display = "none";
+    });
   };
-  let petscenediv = document.getElementById("petscene");
-  let petbutton = document.getElementById("pet-close-btn");
-  petbutton.addEventListener("click", () => {
-    petscenediv.style.display = "none";
-  });
   return new p5(scene);
 }

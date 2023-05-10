@@ -29,6 +29,13 @@ body {
   width: 100%;
 }
 
+#start-over-btn{
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  width: 100px;
+}
+
 .bow {
   width: 100px;
   top: 10px;
@@ -38,17 +45,37 @@ body {
 
 .play {
   width: 100px;
-  top: 50%;
+  bottom: 25px;
   left: 50%;
-  z-index: 2;
+  z-index: 3;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.blocked{
-  filter:grayscale(1);
+.blocked {
+}
+
+.notification {
+  animation: linear 1s infinite wiggle;
+}
+@keyframes wiggle {
+  0% {
+    transform: rotate(5deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
 }
 
 #phone {
@@ -81,28 +108,28 @@ body {
   left: 40%;
 }
 
-#sun{
+#sun {
   width: 300px;
   top: 10%;
   left: 10%;
 }
 
-#storefronts{
-display: flex;
-flex-direction: row;
-height: 100%;
-justify-content: center;
+#storefronts {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  justify-content: center;
 }
 
-#storefronts button{
-position: relative;
-min-height: 100%;
-padding: 0; 
-z-index: 0;
+#storefronts button {
+  position: relative;
+  min-height: 100%;
+  padding: 0;
+  z-index: 0;
 }
 
 /* all scene containers */
-.scene{
+.scene {
   z-index: 0;
   position: absolute;
   top: 0;
@@ -111,7 +138,7 @@ z-index: 0;
   height: 100%;
   display: none;
 }
-.instructionscreen{
+.instructionscreen {
   z-index: 1;
   background-color: white;
   position: absolute;
@@ -122,11 +149,36 @@ z-index: 0;
   display: none;
 }
 
-#mallscene{
-    background-color: white;
+.welcomescreen {
+  z-index: 2;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-height: 100%;
+  object-fit: contain;
 }
 
-#datescene{
+.welcomescreen img{
+  max-height: 914px;
+}
+
+.popup{
+  position: absolute;
+  top: 175px;
+  left:300px;
   z-index: 1;
 }
 
+.popup img{
+  max-width: 1200px;
+
+}
+
+#mallscene {
+  background-color: white;
+}
+
+#datescene {
+  z-index: 1;
+}

@@ -16,6 +16,7 @@ class avatar{
         this.pet=undefined;
         this.avatarimage=img;
         this.tattoos=[];
+        this.nails=[];
       
     }
 
@@ -186,6 +187,83 @@ class avatar{
                     w=object.width;
                     h=object.height;
                 }
+                
+                // jackets
+                if(object.file=="clothing/jackets/jacket1.png"){
+                    clothingX=59;
+                    clothingY=160;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/jackets/jacket3.png"){
+                    clothingX=73;
+                    clothingY=170;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/jackets/jacket4.png"){
+                    clothingX=59;
+                    clothingY=170;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/jackets/jacket2.png"){
+                    clothingX=76;
+                    clothingY=180;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/jackets/jacket6.png"){
+                    clothingX=43;
+                    clothingY=160;
+                    w=object.width;
+                    h=object.height;
+                }
+
+                //shoes
+                if(object.file=="clothing/shoes/shoe1.png"){
+                    clothingX=5;
+                    clothingY=392;
+                    w=object.width;
+                    h=object.height;
+                }
+
+                //accessories
+                if(object.file=="clothing/accessories/accessory1.png"){
+                    clothingX=80;
+                    clothingY=-25;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/accessories/accessory2.png"){
+                    clothingX=65;
+                    clothingY=140;
+                    w=object.width;
+                    h=object.height;
+                }
+
+                //dresses/suits
+                if(object.file=="clothing/dresses/dress1.png"){
+                    clothingX=36;
+                    clothingY=195;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/dresses/dress2.png"){
+                    clothingX=40;
+                    clothingY=185;
+                    w=object.width;
+                    h=object.height;
+                }
+                if(object.file=="clothing/dresses/dress3.png"){
+                    clothingX=28;
+                    clothingY=195;
+                    w=object.width;
+                    h=object.height;
+                }
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-function nailscene() {
+function nailscene(avatarlizard) {
   const scene = (sketch) => {
     var nailFilePath = "nailgame/nailcolors/nail";
     var nailcolor = [];
@@ -9,6 +9,8 @@ function nailscene() {
     var lizardhandy = 100;
     var lizardhandsize = 900;
     var colorchart;
+    var savednails=[];
+
     sketch.preload = () => {
       nailcolor.push(0);
       nailcolor[0] = [];
@@ -23,7 +25,7 @@ function nailscene() {
       for (var i = 1; i <= 5; i++) {
         for (var j = 1; j <= 22; j++) {
           nailcolor[i - 1].push(
-          sketch.loadImage(nailFilePath + i + "color" + j + ".png")
+            sketch.loadImage(nailFilePath + i + "color" + j + ".png")
           );
         }
       }
@@ -49,7 +51,12 @@ function nailscene() {
         320,
         "nailgame/swatches/color2swatch.png"
       );
-      var peach = new swatch(sketch,1140, 310, "nailgame/swatches/color3swatch.png");
+      var peach = new swatch(
+        sketch,
+        1140,
+        310,
+        "nailgame/swatches/color3swatch.png"
+      );
       var darkBrown = new swatch(
         sketch,
         1180,
@@ -68,22 +75,42 @@ function nailscene() {
         320,
         "nailgame/swatches/color6swatch.png"
       );
-      var orange = new swatch(sketch,1095, 370, "nailgame/swatches/color7swatch.png");
-      var blue = new swatch(sketch,1125, 365, "nailgame/swatches/color8swatch.png");
+      var orange = new swatch(
+        sketch,
+        1095,
+        370,
+        "nailgame/swatches/color7swatch.png"
+      );
+      var blue = new swatch(
+        sketch,
+        1125,
+        365,
+        "nailgame/swatches/color8swatch.png"
+      );
       var lavender = new swatch(
         sketch,
         1160,
         370,
         "nailgame/swatches/color9swatch.png"
       );
-      var cream = new swatch(sketch,1195, 370, "nailgame/swatches/color10swatch.png");
+      var cream = new swatch(
+        sketch,
+        1195,
+        370,
+        "nailgame/swatches/color10swatch.png"
+      );
       var brightGreen = new swatch(
         sketch,
         1220,
         380,
         "nailgame/swatches/color11swatch.png"
       );
-      var purple = new swatch(sketch,1270, 395, "nailgame/swatches/color12swatch.png");
+      var purple = new swatch(
+        sketch,
+        1270,
+        395,
+        "nailgame/swatches/color12swatch.png"
+      );
       var lightBrown = new swatch(
         sketch,
         1060,
@@ -98,22 +125,52 @@ function nailscene() {
       );
       var lightPink = new swatch(
         sketch,
-        1113,
+        1117,
         425,
         "nailgame/swatches/color15swatch.png"
       );
-      var red = new swatch(sketch,1150, 430, "nailgame/swatches/color16swatch.png");
-      var yellow = new swatch(sketch,1180, 435, "nailgame/swatches/color17swatch.png");
-      var khaki = new swatch(sketch,1220, 435, "nailgame/swatches/color18swatch.png");
-      var white = new swatch(sketch,1250, 440, "nailgame/swatches/color19swatch.png");
+      var red = new swatch(
+        sketch,
+        1150,
+        430,
+        "nailgame/swatches/color16swatch.png"
+      );
+      var yellow = new swatch(
+        sketch,
+        1180,
+        435,
+        "nailgame/swatches/color17swatch.png"
+      );
+      var khaki = new swatch(
+        sketch,
+        1220,
+        435,
+        "nailgame/swatches/color18swatch.png"
+      );
+      var white = new swatch(
+        sketch,
+        1250,
+        440,
+        "nailgame/swatches/color19swatch.png"
+      );
       var darkBlue = new swatch(
         sketch,
         1125,
         490,
         "nailgame/swatches/color20swatch.png"
       );
-      var grey = new swatch(sketch,1170, 490, "nailgame/swatches/color21swatch.png");
-      var black = new swatch(sketch,1210, 500, "nailgame/swatches/color22swatch.png");
+      var grey = new swatch(
+        sketch,
+        1170,
+        490,
+        "nailgame/swatches/color21swatch.png"
+      );
+      var black = new swatch(
+        sketch,
+        1210,
+        500,
+        "nailgame/swatches/color22swatch.png"
+      );
 
       swatches.push(darkPink);
       swatches.push(babyBlue);
@@ -173,43 +230,45 @@ function nailscene() {
       }
     };
     sketch.mousePressed = () => {
-        for (var i = 0; i < swatches.length; i++) {
-            if (swatches[i].intersect()) {
-              swatches[i].active = true;
-            }
-          }
-    }
+      for (var i = 0; i < swatches.length; i++) {
+        if (swatches[i].intersect()) {
+          swatches[i].active = true;
+        }
+      }
+    };
     sketch.mouseReleased = () => {
-        for (var i = 0; i < swatches.length; i++) {
-            if (swatches[i].active) {
-              swatches[i].x = swatches[i].originalx;
-              swatches[i].y = swatches[i].originaly;
-              swatches[i].active = false;
-              swatches[i].placed = true;
-              if (sketch.mouseX > 550 && sketch.mouseX < 650) {
-                nails[0] = nailcolor[0][i];
-                // nailgame/nailcolors/nail1color1.png
-              } else if (sketch.mouseX >= 650 && sketch.mouseX < 760) {
-                console.log("nail2");
-                nails[1] = nailcolor[1][i];
-              } else if (sketch.mouseX >= 760 && sketch.mouseX < 870) {
-                console.log("nail3");
-                nails[2] = nailcolor[2][i];
-              } else if (sketch.mouseX >= 870 && sketch.mouseX < 1000) {
-                console.log("nail4");
-                nails[3] = nailcolor[3][i];
-              } else if (sketch.mouseX > 1000 && sketch.mouseX < 1080) {
-                console.log("nail5");
-                nails[4] = nailcolor[4][i];
-              }
-            }
-          } 
-    }
+      for (var i = 0; i < swatches.length; i++) {
+        if (swatches[i].active) {
+          swatches[i].x = swatches[i].originalx;
+          swatches[i].y = swatches[i].originaly;
+          swatches[i].active = false;
+          swatches[i].placed = true;
+          if (sketch.mouseX > 550 && sketch.mouseX < 650) {
+            nails[0] = nailcolor[0][i];
+            savednails[0]="nail1color"+ (i+1);
+            // nailgame/nailcolors/nail1color1.png
+          } else if (sketch.mouseX >= 650 && sketch.mouseX < 760) {
+            nails[1] = nailcolor[1][i];
+            savednails[1]="nail2color"+ (i+1);
+          } else if (sketch.mouseX >= 760 && sketch.mouseX < 870) {
+            nails[2] = nailcolor[2][i];
+            savednails[2]="nail3color"+(i+1);
+          } else if (sketch.mouseX >= 870 && sketch.mouseX < 1000) {
+            savednails[3]="nail4color"+(i+1);
+            nails[3] = nailcolor[3][i];
+          } else if (sketch.mouseX > 1000 && sketch.mouseX < 1080) {
+            nails[4] = nailcolor[4][i];
+            savednails[4]="nail5color"+(i+1);
+          }
+        }
+      }
+    };
+    let nailscenediv = document.getElementById("nailscene");
+    let nailbutton = document.getElementById("nail-close-btn");
+    nailbutton.addEventListener("click", () => {
+      nailscenediv.style.display = "none";
+      avatarlizard.nails=savednails;
+    });
   };
-  let nailscenediv = document.getElementById("nailscene");
-  let nailbutton = document.getElementById("nail-close-btn");
-  nailbutton.addEventListener("click", () => {
-    nailscenediv.style.display = "none";
-  });
   return new p5(scene);
 }
