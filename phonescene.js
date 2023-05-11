@@ -361,10 +361,14 @@ function phonescene(avatarlizard) {
             messageheight / 4
           );
         }
-        sketch.image(arrowbtn, 1200, 700, 65, 65);
+        sketch.datebtnx=sketch.width/2-50;
+        sketch.datebtny=650;
+        sketch.datebtnw=200;
+
+        sketch.image(arrowbtn, sketch.datebtnx, sketch.datebtny, sketch.datebtnw, sketch.datebtnw);
         sketch.response = response2;
       } else if (numclicks == 4) {
-        if (sketch.hover(1200, 700, 65, 65)) {
+        if (sketch.hover(sketch.datebtnx, sketch.datebtny, sketch.datebtnw, sketch.datebtnw)) {
           document.getElementById("phonescene").style.display = "none";
           document.getElementById("phone-close-btn").style.display = "none";
           document.getElementById("datescene").style.display = "block";
