@@ -110,11 +110,11 @@ function arcadescene() {
     class Dinosaur {
       constructor(scorp) {
         this.scorp = scorp;
-        this.r = 200;
+        this.r = 300;
         this.x = this.r;
         this.y = sketch.height - this.r;
         this.vy = 0;
-        this.gravity = 0.6;
+        this.gravity = 0.225;
       }
 
       jump() {
