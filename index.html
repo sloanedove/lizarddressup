@@ -3,20 +3,125 @@
   <head>
     <script src="p5.js"></script>
     <script src="p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdn.jsdelivr.net/gh/bmoren/p5.collide2D/p5.collide2d.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <meta charset="utf-8" />
-
   </head>
   <body>
-    <script src="classes/Clothing.js"></script>
-    <script src="classes/swatches.js"></script>
-    <script src="classes/button.js"></script>
+    <!-- <script src="classes/swatches.js"></script>
     <script src="classes/pets.js"></script>
-    <script src="classes/avatar.js"></script>
-    <script src="classes/tattoo.js"></script>
+    <script src="classes/tattoo.js"></script> -->
     <!-- sketch.js always at the bottom -->
-    <script src="sketch.js"></script>
+    <!-- <script src="sketch.js"></script> -->
+    <script src="classes/swatches.js"></script>
+    <script src="classes/pets.js"></script>
+    <script src="classes/Clothing.js"></script>
+    <script src="classes/avatar.js"></script>
+    <script src="classes/button.js"></script>
+    <div id="welcome" class="welcomescreen">
+      <img src="textscreens/openingscreen.png">
+      <button class="menu-btn play" id="welcome-close-btn">
+        <img src="buttons/playagainbtn.png" />
+      </button>
+    </div>
+    <div id="home-popup" class="popup">
+      <img src="textscreens/gotohomepopup.png">
+    </div>
+    <div id="mall-popup" class="popup hidden">
+      <img src="textscreens/gotohomepopup.png">
+    </div>
+    <div id="phone-popup" class="popup hidden">
+      <img src="textscreens/gotohomepopup.png">
+    </div>
+    <div id="backgroundimage">
+      <img src="menu/background.png" />
+      <button id="phone" class="menu-btn hidden">
+        <img src="menu/phonecool.png" />
+      </button>
+      <button id="phoneblocked" class="menu-btn blocked">
+        <img src="menu/phonecool.png" />
+      </button>
+      <button id="home" class="menu-btn notification">
+        <img src="menu/home.png" />
+      </button>
+      <button id="mall" class="menu-btn hidden">
+        <img src="menu/themall.png" />
+      </button>
+      <button id="mallblocked" class="menu-btn blocked">
+        <img src="menu/themall.png" />
+      </button>
+      <button id="sun" class="menu-btn"><img src="menu/sun.png" /></button>
+    </div>
+    <div id="phonescene" class="scene">
+      <button class="menu-btn bow" id="phone-close-btn">
+        <img src="buttons/deserticon.png" />
+      </button>
+    </div>
+    <div id="homescene" class="scene">
+      <button class="menu-btn bow" id="home-close-btn">
+        <img src="buttons/deserticon.png" />
+      </button>
+    </div>
+    <div id="mallscene" class="scene">
+      <button class="menu-btn bow" id="mall-close-btn">
+        <img src="buttons/deserticon.png" />
+      </button>
+      <div id="storefronts">
+        <button id="petstore" class="menu-btn">
+          <img src="storefronts/bugstore.png" />
+        </button>
+        <button id="arcadestore" class="menu-btn">
+          <img src="storefronts/arcade.png" />
+        </button>
+        <button id="nailsalon" class="menu-btn">
+          <img src="storefronts/nailsalon.png" />
+        </button>
+      </div>
+    </div>
+    <div id="petscene" class="scene">
+      <button class="menu-btn bow" id="pet-close-btn">
+        <img src="buttons/deserticon.png" />
+      </button>
+    </div>
+    <div id="posterscene" class="scene">
+      <button class="menu-btn bow" id="poster-close-btn">
+        <img src="buttons/deserticon.png" />
+      </button>
+      <button id="scorpgame" class="menu-btn">
+        <img src="arcade/scorpjumpposter.png" />
+      </button>
+      <button id="tilegame" class="menu-btn">
+        <img src="arcade/tilebreakposter.png" />
+      </button>
+    </div>
+    <div id="arcadescene" class="scene">
+      <button class="menu-btn bow" id="arcade-close-btn">
+        <img src="buttons/deserticon.png" />
+      </button>
+    </div>
+    <div id="nailscene" class="scene">
+      <button class="menu-btn bow" id="nail-close-btn">
+        <img src="buttons/deserticon.png" />
+      </button>
+    </div>
+    <div id="nailinstructions" class="instructionscreen">
+      <button class="menu-btn play" id="nail-start-btn">
+        <img src="buttons/deserticon.png" />
+      </button>
+    </div>
+    <div id="datescene" class="scene"></div>
 
-    
+    <div id="playagain">
+      <button class="menu-btn" id="start-over-btn">
+        <img src="buttons/playagainbtn.png" />
+      </button>
+    </div>
+    <script src="datescene.js"></script>
+    <script src="phonescene.js"></script>
+    <script src="homescene.js"></script>
+    <script src="petscene.js"></script>
+    <script src="nailscene.js"></script>
+    <script src="arcadescene.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

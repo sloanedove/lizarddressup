@@ -1,0 +1,203 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* background-image: url("menu/background.png");
+    object-fit: cover; */
+  width: 100%;
+  height: 100%;
+  overflow: clip;
+}
+#backgroundimage {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+#backgroundimage img {
+  width: 100%;
+  object-fit: contain;
+}
+/* all buttons */
+.menu-btn {
+  background: none;
+  border: none;
+  position: absolute;
+  cursor: pointer;
+}
+
+.menu-btn img {
+  width: 100%;
+}
+
+#start-over-btn{
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  width: 100px;
+}
+
+.bow {
+  width: 100px;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.play {
+  width: 100px;
+  bottom: 25px;
+  left: 50%;
+  z-index: 3;
+}
+
+.hidden {
+  display: none;
+}
+
+.blocked {
+}
+
+.notification {
+  animation: linear 1s infinite wiggle;
+}
+@keyframes wiggle {
+  0% {
+    transform: rotate(5deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+#phone {
+  width: 200px;
+  top: 50%;
+  left: 65%;
+}
+
+#phoneblocked {
+  width: 200px;
+  top: 50%;
+  left: 65%;
+}
+
+#home {
+  width: 350px;
+  top: 50%;
+  left: 20%;
+}
+
+#mall {
+  width: 300px;
+  top: 45%;
+  left: 40%;
+}
+
+#mallblocked {
+  width: 300px;
+  top: 45%;
+  left: 40%;
+}
+
+#sun {
+  width: 300px;
+  top: 10%;
+  left: 10%;
+}
+
+#storefronts {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  justify-content: center;
+}
+
+#storefronts button {
+  position: relative;
+  min-height: 100%;
+  padding: 0;
+  z-index: 0;
+}
+#posterscene{
+background-color: white;
+}
+
+#scorpgame{
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  width: 50%;
+
+}
+
+#tilegame{
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  width: 50%;
+
+}
+
+/* all scene containers */
+.scene {
+  z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.instructionscreen {
+  z-index: 1;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.welcomescreen {
+  z-index: 2;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.welcomescreen img{
+  max-height: 914px;
+}
+
+.popup{
+  position: absolute;
+  top: 175px;
+  left:300px;
+  z-index: 1;
+}
+
+.popup img{
+  max-width: 1200px;
+
+}
+
+#mallscene {
+  background-color: white;
+}
+
+#datescene {
+  z-index: 1;
+}
