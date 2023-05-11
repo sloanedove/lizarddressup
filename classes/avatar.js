@@ -28,7 +28,8 @@ class avatar{
         sketch.image(this.avatarimage, 0, 0, scaledWidth, scaledHeight);
         if(this.pet!=undefined){
             //position of pet
-            // image(this.pet.fileName, x+width/2, y+height, 100, 100)
+            sketch.image(this.pet.fileName, (scaledWidth/2)-100, 150, 100, 100)
+            // console.log(this.pet);
         }
         if (this.tattoos.length!=0){
             for(let i=0; i<this.tattoos.length; i++){
@@ -280,7 +281,7 @@ class avatar{
                 //     clothingX=scaledWidth/2-68;
                 //     clothingY=scaledHeight-62; 
                 // }
-               
+            //    console.log(w*(2.75/scale));
                 sketch.image(object.loadedImage,clothingX,clothingY, w, h);
                 sketch.pop();
                 
@@ -288,4 +289,5 @@ class avatar{
         })
         sketch.pop();
     }
+
 }

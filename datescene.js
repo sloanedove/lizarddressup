@@ -26,10 +26,10 @@ function datescene(response, avatarlizard) {
             } else if(response=="balloon"){
                 sketch.image(balloonbackground,0, 0, sketch.width, sketch.height);
                 sketch.push();
-                avatarlizard.display(sketch, (sketch.width/2)-225, 300, 4);
-                avatarlizard.displayClothing(sketch, (sketch.width/2)-225, 300,4);
+                avatarlizard.display(sketch, (sketch.width/2)-250, 200, 2.75);
+                avatarlizard.displayClothing(sketch, (sketch.width/2)-250, 200,2.75);
                 sketch.pop();
-                sketch.image(lizardgf, (sketch.width/2)+50-225, 300,1500/4, 1500/4);
+                sketch.image(lizardgf, (sketch.width/2)+50-250, 200,lizardsize, lizardsize);
                 // sketch.image(balloon,0, 0, sketch.width, sketch.height);
             }else if(response=="lavender"){
                 sketch.image(lavender,0, 0, sketch.width, sketch.height);

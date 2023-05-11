@@ -99,87 +99,57 @@ function petscene(avatarlizard) {
           } else if (i == 2) {
             caterpillar1 = new pet(
               sketch,
-              200,
-              200,
-              200,
-              200,
+              675, 650, 200, 200,
               petFileNames[i * 3]
             );
             caterpillar2 = new pet(
               sketch,
-              200,
-              300,
-              200,
-              200,
+              875, 650, 200, 200,
               petFileNames[i * 3 + 1]
             );
             caterpillar3 = new pet(
               sketch,
-              200,
-              400,
-              200,
-              200,
+              1075, 650, 200, 200,
               petFileNames[i * 3 + 2]
             );
           } else if (i == 3) {
             grasshopper1 = new pet(
               sketch,
-              200,
-              200,
-              200,
-              200,
+              675, 650, 200, 200,
               petFileNames[i * 3]
             );
             grasshopper2 = new pet(
               sketch,
-              200,
-              300,
-              200,
-              200,
+              875, 650, 200, 200,
               petFileNames[i * 3 + 1]
             );
             grasshopper3 = new pet(
               sketch,
-              200,
-              400,
-              200,
-              200,
+              1075, 650, 200, 200,
               petFileNames[i * 3 + 2]
             );
           } else if (i == 4) {
-            ladybug1 = new pet(sketch, 200, 200, 200, 200, petFileNames[i * 3]);
+            ladybug1 = new pet(sketch, 675, 650, 200, 200, petFileNames[i * 3]);
             ladybug2 = new pet(
               sketch,
-              200,
-              300,
-              200,
-              200,
+              875, 650, 200, 200,
               petFileNames[i * 3 + 1]
             );
             ladybug3 = new pet(
               sketch,
-              200,
-              400,
-              200,
-              200,
+              1075, 650, 200, 200,
               petFileNames[i * 3 + 2]
             );
           } else if (i == 5) {
-            worm1 = new pet(sketch, 200, 200, 200, 200, petFileNames[i * 3]);
+            worm1 = new pet(sketch, 675, 650, 200, 200, petFileNames[i * 3]);
             worm2 = new pet(
               sketch,
-              200,
-              300,
-              200,
-              200,
+              875, 650, 200, 200,
               petFileNames[i * 3 + 1]
             );
             worm3 = new pet(
               sketch,
-              200,
-              400,
-              200,
-              200,
+              1075, 650, 200, 200,
               petFileNames[i * 3 + 2]
             );
           }

@@ -42,11 +42,14 @@ window.onload = () => {
     petscenediv.style.display = "block";
     ps=petscene(avatarlizard);
   });
-  let arcadescenediv = document.getElementById("arcadescene");
-  let arcadebutton = document.getElementById("arcadestore");
-  arcadebutton.addEventListener("click", () => {
+  document.getElementById("scorpgame").addEventListener("mousedown", ()=> {
     arcadescenediv.style.display = "block";
     arcadescene();
+  });
+  let arcadescenediv = document.getElementById("arcadescene");
+  let arcadebutton = document.getElementById("arcadestore");
+  arcadebutton.addEventListener("mousedown", () => {
+    document.getElementById("posterscene").style.display="block";
   });
   let nailscenediv = document.getElementById("nailscene");
   let nailinstructiondiv = document.getElementById("nailinstructions");
@@ -86,6 +89,9 @@ window.onload = () => {
     phonebutton.classList.add("notification");
     document.getElementById("phone-popup").classList.remove("hidden");
   });
+  document.getElementById("poster-close-btn").addEventListener("click", () =>{
+    document.getElementById("posterscene").style.display="none";
+  })
 
   let homebuttonclose = document.getElementById("home-close-btn");
     homebuttonclose.addEventListener("click", () => {
